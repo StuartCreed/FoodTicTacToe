@@ -11,11 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').vue()
+mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
-    ]).browserSync('http://localhost:81/')
+    ])
+
+mix.js('resources/js/game.js', 'public/js').vue().browserSync('http://localhost:81/')
 
 if (mix.inProduction()) {
     mix.version();
