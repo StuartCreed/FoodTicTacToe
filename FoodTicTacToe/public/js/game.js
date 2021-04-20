@@ -14869,10 +14869,10 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-05695318");
 
 var _hoisted_1 = {
-  "class": "board grid grid-cols-3"
+  "class": "w-full"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div data-cell-index=\"0\" class=\"cell rounded-tl-xl\" data-v-05695318>0</div><div data-cell-index=\"1\" class=\"cell\" data-v-05695318>1</div><div data-cell-index=\"2\" class=\"cell rounded-tr-xl\" data-v-05695318>2</div><div data-cell-index=\"3\" class=\"cell\" data-v-05695318>3</div><div data-cell-index=\"4\" class=\"cell\" data-v-05695318>4</div><div data-cell-index=\"5\" class=\"cell\" data-v-05695318>5</div><div data-cell-index=\"6\" class=\"cell rounded-bl-xl\" data-v-05695318>6</div><div data-cell-index=\"7\" class=\"cell\" data-v-05695318>7</div><div data-cell-index=\"8\" class=\"cell rounded-br-xl\" data-v-05695318>8</div>", 9);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"board grid grid-cols-3 gap-6 w-96 m-auto\" data-v-05695318><div data-cell-index=\"0\" class=\"cell rounded-xl\" data-v-05695318>0</div><div data-cell-index=\"1\" class=\"cell rounded-xl\" data-v-05695318>1</div><div data-cell-index=\"2\" class=\"cell rounded-xl\" data-v-05695318>2</div><div data-cell-index=\"3\" class=\"cell rounded-xl\" data-v-05695318>3</div><div data-cell-index=\"4\" class=\"cell rounded-xl\" data-v-05695318>4</div><div data-cell-index=\"5\" class=\"cell rounded-xl\" data-v-05695318>5</div><div data-cell-index=\"6\" class=\"cell rounded-xl\" data-v-05695318>6</div><div data-cell-index=\"7\" class=\"cell rounded-xl\" data-v-05695318>7</div><div data-cell-index=\"8\" class=\"cell rounded-xl\" data-v-05695318>8</div></div>", 1);
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -14971,7 +14971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cell[data-v-05695318] {\n        display: flex;\n        border: 1px solid black;\n        padding: 50px;\n        justify-content: center;\n        align-items: center;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.cell[data-v-05695318] {\n        display: flex;\n        border: 1px solid black;\n        padding: 40px;\n        justify-content: center;\n        align-items: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
