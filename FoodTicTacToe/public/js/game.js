@@ -14770,7 +14770,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       cells: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (number) {
         return {
-          id: number
+          id: number,
+          value: 'empty'
         };
       })
     };
@@ -14791,7 +14792,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['data'],
-  name: "Cell.vue"
+  name: "Cell.vue",
+  emits: ['cellClickedOn']
 });
 
 /***/ }),
@@ -14904,10 +14906,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.cells, function (data) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_cell, {
-      data: data
+      data: data,
+      onCellClickedOn: function onCellClickedOn($event) {
+        return data.value = 'clicked';
+      }
     }, null, 8
     /* PROPS */
-    , ["data"]);
+    , ["data", "onCellClickedOn"]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])]);
@@ -14930,16 +14935,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("data-v-a9936778");
 
-(0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-a9936778");
-
-var _hoisted_1 = {
-  "class": "flex border-2 border-black p-12 justify-items-center rounded-xl"
-};
-
-(0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
-
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data.id), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+    "class": "flex border-2 border-black p-12 justify-items-center rounded-xl",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return _ctx.$emit('cellClickedOn');
+    })
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data.value), 1
   /* TEXT */
   );
 });
