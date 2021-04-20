@@ -14771,34 +14771,26 @@ __webpack_require__.r(__webpack_exports__);
       cells: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (number) {
         return {
           id: number,
-          value: 'empty'
+          value: 'empty' // Can be 'empty', 'computer', 'player'
+
         };
       }),
-      winningConditions: [{
-        1: [0, 1, 2]
-      }, {
-        2: [3, 4, 5]
-      }, {
-        3: [6, 7, 8]
-      }, {
-        4: [0, 3, 6]
-      }, {
-        5: [1, 4, 7]
-      }, {
-        6: [2, 5, 8]
-      }, {
-        7: [0, 4, 8]
-      }, {
-        8: [2, 4, 6]
-      }]
+      winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
+      currentGo: 'computer'
     };
   },
   methods: {
     updateBoard: function updateBoard(cell, value) {
       this.cells[cell].value = value;
       this.checkBoard();
+      this.changePlayer();
+    },
+    changePlayer: function changePlayer() {
+      this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
     },
     checkBoard: function checkBoard() {
+      //TODO check if winning condition has been met
+      //TODO check if all cells have been changed
       console.log(this.cells);
     }
   }
@@ -14817,9 +14809,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['data'],
+  props: ['data', 'currentGo'],
   name: "Cell.vue",
-  emits: ['cellClickedOn']
+  emits: ['cellClickedOn'],
+  methods: {
+    cellClickedOn: function cellClickedOn() {
+      this.$emit('cellClickedOn', this.data.id, this.currentGo);
+    }
+  }
 });
 
 /***/ }),
@@ -14933,10 +14930,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.cells, function (data) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_cell, {
       data: data,
+      currentGo: _ctx.currentGo,
       onCellClickedOn: $options.updateBoard
     }, null, 8
     /* PROPS */
-    , ["data", "onCellClickedOn"]);
+    , ["data", "currentGo", "onCellClickedOn"]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])]);
@@ -14962,8 +14960,8 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
     "class": "flex border-2 border-black p-12 justify-items-center rounded-xl",
-    onClick: _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.$emit('cellClickedOn', $props.data.id, 'clicked');
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $options.cellClickedOn && $options.cellClickedOn.apply($options, arguments);
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data.value), 1
   /* TEXT */

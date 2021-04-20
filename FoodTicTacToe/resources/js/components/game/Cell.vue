@@ -1,7 +1,7 @@
 <template>
     <div
         class="flex border-2 border-black p-12 justify-items-center rounded-xl"
-        @click="$emit('cellClickedOn', data.id, 'clicked')"
+        @click="cellClickedOn"
     >
         {{ data.value }}
     </div>
@@ -9,9 +9,14 @@
 
 <script>
 export default {
-    props: ['data'],
+    props: ['data', 'currentGo'],
     name: "Cell.vue",
-    emits: ['cellClickedOn']
+    emits: ['cellClickedOn'],
+    methods: {
+        cellClickedOn: function() {
+            this.$emit('cellClickedOn', this.data.id, this.currentGo)
+        }
+    }
 }
 </script>
 
