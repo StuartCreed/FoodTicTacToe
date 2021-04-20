@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="feat(initial): Redirects to route Game after login">
+    <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="feat(initial): Removes submenu bar">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_20_04_2021__18_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/FoodTicTacToe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FoodTicTacToe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/game.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/game.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/scoreboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/scoreboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/jetstream/components/welcome.blade.php" afterDir="false" />
@@ -148,6 +156,17 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
     </include_path>
   </component>
   <component name="ProjectId" id="1rPErzjNVpXsO6urwWqZt8qvLnb" />
@@ -157,8 +176,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -179,7 +200,8 @@
       <option name="presentableId" value="Default" />
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
-      <workItem from="1618870665615" duration="10890000" />
+      <workItem from="1618870665615" duration="11499000" />
+      <workItem from="1618938830945" duration="372000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -209,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618936081104</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat(initial): Removes submenu bar">
+      <created>1618938241720</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1618938241720</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +249,7 @@
     <MESSAGE value="feat(initial): Scaffolds Scoreboard Route" />
     <MESSAGE value="feat(initial): Scaffolds Game Route" />
     <MESSAGE value="feat(initial): Redirects to route Game after login" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(initial): Redirects to route Game after login" />
+    <MESSAGE value="feat(initial): Removes submenu bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(initial): Removes submenu bar" />
   </component>
 </project>
