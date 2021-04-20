@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/scoreboard', function () {
     return view('scoreboard');
 })->name('scoreboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/game', function () {
+    return view('game');
+})->name('game');
