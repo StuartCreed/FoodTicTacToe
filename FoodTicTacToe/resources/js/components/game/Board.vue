@@ -1,10 +1,11 @@
 <template>
-    Game
+    <div>Board</div>
 </template>
 
 <script>
 export default {
-    name: "Game.vue"
+    components: {},
+    name: "Board.vue"
 }
 </script>
 
