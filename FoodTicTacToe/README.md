@@ -6,6 +6,8 @@
 <p>./vendor/bin/sail up && ./vendor/bin/sail migrate && npm install && npm run dev</p>
 <p>https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server</p>
 
+<p>QuaserJS Vue3 in Beta so I left it for now. Only major Vue 2 support at the moment.</p>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
