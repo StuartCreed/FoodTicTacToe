@@ -1,3 +1,4 @@
+<div class="mb-2 font-medium text-xl text-grey-600" style="text-align: center">Food Tic Tac Toe</div>
 <a href="/">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="162" height="93" viewBox="0, 0, 332, 263">
         <g id="Layer_1">
