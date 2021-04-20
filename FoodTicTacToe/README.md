@@ -1,8 +1,9 @@
-<p>./vendor/bin/sail up && npm install && npm run dev</p>
+<p>Host 'IP ADDRESS' is not allowed to connect to this MySQL server/p>
 <p>CREATE USER 'root'@'172.29.0.1' IDENTIFIED BY '';</p>
 <p>GRANT ALL PRIVILEGES ON *.* TO 'root'@'172.29.0.1';</p>
 <p>CREATE USER 'sail'@'172.29.0.7' IDENTIFIED BY '';</p>
-<p>GRANT ALL PRIVILEGES ON *.* TO 'sail'@'172.29.0.7;</p>å
+<p>GRANT ALL PRIVILEGES ON *.* TO 'sail'@'172.29.0.7;</p>
+<p>./vendor/bin/sail up && ./vendor/bin/sail migrate && npm install && npm run dev</p>
 <p>https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server</p>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
