@@ -14778,6 +14778,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   name: "Board.vue",
+  props: ['currentGo'],
   data: function data() {
     return {
       cells: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (number) {
@@ -14788,7 +14789,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         };
       }),
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
-      currentGo: 'computer',
       users: [{
         name: 'computer',
         cellsClicked: []
@@ -14799,16 +14799,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   methods: {
-    updateBoard: function updateBoard(cell, value) {
-      this.cells[cell].value = value;
-      this.updateCellsUserHasClicked(value, cell);
+    updateBoard: function updateBoard(cell, user) {
+      this.cells[cell].value = user;
+      this.updateCellsUserHasClicked(user, cell);
       this.checkBoard();
 
       if (this.totalCellsClicked.length === 9) {
         alert('All goes taken');
       }
 
-      this.changePlayer();
+      this.changePlayer(user);
     },
     checkBoard: function checkBoard() {
       var _this = this;
@@ -14828,7 +14828,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
 
         if (won) {
-          alert("User: ".concat(user.name, " has won"));
+          _this.gameWon(user.name);
         }
       }); //TODO check if all cells have been changed
     },
@@ -14839,8 +14839,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
     },
-    changePlayer: function changePlayer() {
-      this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
+    changePlayer: function changePlayer(user) {
+      this.$emit('updateGo', user);
+    },
+    gameWon: function gameWon(user) {
+      this.$emit('gameWon', user);
     }
   },
   computed: {
@@ -14904,7 +14907,28 @@ __webpack_require__.r(__webpack_exports__);
     AppButton: _AppButton_vue__WEBPACK_IMPORTED_MODULE_3__.default,
     WinnerPopUp: _WinnerPopUp_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  name: "Game.vue"
+  name: "Game.vue",
+  data: function data() {
+    return {
+      whoIsWinning: null,
+      currentGo: 'computer',
+      score: {
+        computer: 0,
+        player: 0
+      }
+    };
+  },
+  methods: {
+    updateWinner: function updateWinner(user) {
+      this.updateScore(user);
+    },
+    updateScore: function updateScore(user) {
+      this.score[user] = this.score[user] + 1;
+    },
+    updateGo: function updateGo(user) {
+      user === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
+    }
+  }
 });
 
 /***/ }),
@@ -14988,7 +15012,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.cells, function (data) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_cell, {
       data: data,
-      currentGo: _ctx.currentGo,
+      currentGo: $props.currentGo,
       onCellClickedOn: $options.updateBoard
     }, null, 8
     /* PROPS */
@@ -15052,7 +15076,25 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
 
   var _component_board = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("board");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_board), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel)], 64
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+    computerScore: _ctx.score.computer,
+    userName: "computer",
+    currentGo: _ctx.currentGo
+  }, null, 8
+  /* PROPS */
+  , ["computerScore", "currentGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_board, {
+    onGameWon: $options.updateWinner,
+    currentGo: _ctx.currentGo,
+    onUpdateGo: $options.updateGo
+  }, null, 8
+  /* PROPS */
+  , ["onGameWon", "currentGo", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+    computerScore: _ctx.score.computer,
+    userName: "player",
+    currentGo: _ctx.currentGo
+  }, null, 8
+  /* PROPS */
+  , ["computerScore", "currentGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel)], 64
   /* STABLE_FRAGMENT */
   );
 });

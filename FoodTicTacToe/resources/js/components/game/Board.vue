@@ -16,6 +16,7 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
+    props: ['currentGo'],
     data: function () {
         return {
             cells: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(number => {
@@ -34,7 +35,6 @@ export default {
                 [0, 4, 8],
                 [2, 4, 6]
             ],
-            currentGo: 'computer',
             users:
                 [{
                     name: 'computer',
@@ -47,14 +47,14 @@ export default {
         }
     },
     methods: {
-        updateBoard: function(cell, value) {
-            this.cells[cell].value = value;
-            this.updateCellsUserHasClicked(value, cell)
+        updateBoard: function(cell, user) {
+            this.cells[cell].value = user;
+            this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
             if (this.totalCellsClicked.length === 9) {
                 alert('All goes taken')
             }
-            this.changePlayer()
+            this.changePlayer(user);
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
@@ -70,7 +70,7 @@ export default {
                 })
 
                 if (won) {
-                    alert(`User: ${user.name} has won`)
+                    this.gameWon(user.name);
                 }
             })
             //TODO check if all cells have been changed
@@ -82,9 +82,12 @@ export default {
                 }
             });
         },
-        changePlayer: function() {
-            this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer'
+        changePlayer: function(user) {
+            this.$emit('updateGo', user)
         },
+        gameWon: function(user) {
+            this.$emit('gameWon', user)
+        }
     },
     computed: {
         totalCellsClicked: function() {
