@@ -14810,6 +14810,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.updateCellsUserHasClicked(user, cell);
       this.checkBoard();
       this.changePlayer(user);
+      this.$emit('cellClickedOn', cell);
     },
     checkBoard: function checkBoard() {
       var _this = this;
@@ -14878,12 +14879,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['cell', 'currentGo'],
+  props: ['cell', 'currentGo', 'clickedOn'],
   name: "Cell.vue",
   emits: ['cellClickedOn'],
   methods: {
     cellClickedOn: function cellClickedOn() {
-      this.$emit('cellClickedOn', this.cell.id, this.currentGo);
+      if (!this.clickedOn) {
+        this.$emit('cellClickedOn', this.cell.id, this.currentGo);
+      }
     }
   },
   computed: {
@@ -14953,7 +14956,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return this.$swal("".concat(user, " wins!"));
 
               case 3:
-                this.resetGame();
+                this.resetBoard();
 
               case 4:
               case "end":
@@ -14980,8 +14983,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showStartingPopup();
     },
     resetGame: function resetGame() {
-      this.cells = this.freshCells();
+      this.resetBoard();
       this.score = this.freshScores();
+    },
+    resetBoard: function resetBoard() {
+      this.cells = this.freshCells();
       this.resetCellsClicked();
     },
     showStartingPopup: function showStartingPopup() {
@@ -14991,8 +14997,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (number) {
         return {
           id: number,
-          value: 'empty' // Can be 'empty', 'computer', 'player'
-
+          value: 'empty',
+          // Can be 'empty', 'computer', 'player'
+          clickedOn: false
         };
       });
     },
@@ -15006,6 +15013,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.users.forEach(function (user) {
         user.cellsClicked = [];
       });
+    },
+    updateCellsClickedOn: function updateCellsClickedOn(cell) {
+      this.cells[cell].clickedOn = true;
     }
   }
 });
@@ -15097,10 +15107,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_cell, {
       cell: cell,
       currentGo: $props.currentGo,
+      clickedOn: cell.clickedOn,
       onCellClickedOn: $options.updateBoard
     }, null, 8
     /* PROPS */
-    , ["cell", "currentGo", "onCellClickedOn"]);
+    , ["cell", "currentGo", "clickedOn", "onCellClickedOn"]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])]);
@@ -15176,10 +15187,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     users: _ctx.users,
     cells: _ctx.cells,
     onGameWon: $options.updateWinner,
-    onUpdateGo: $options.updateGo
+    onUpdateGo: $options.updateGo,
+    onCellClickedOn: $options.updateCellsClickedOn
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "onGameWon", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "onGameWon", "onUpdateGo", "onCellClickedOn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.player,
     userName: "player",
     currentGo: _ctx.currentGo

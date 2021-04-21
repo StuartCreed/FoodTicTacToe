@@ -1,7 +1,7 @@
 <template>
     <app-button text="Start New Game" @click="startNewGame"></app-button>
     <score-panel :score="score.computer" userName="computer" :currentGo="currentGo"></score-panel>
-    <board :currentGo="currentGo" :users="users" :cells="cells" @gameWon="updateWinner" @updateGo="updateGo"></board>
+    <board :currentGo="currentGo" :users="users" :cells="cells" @gameWon="updateWinner" @updateGo="updateGo" @cellClickedOn="updateCellsClickedOn"></board>
     <score-panel :score="score.player" userName="player" :currentGo="currentGo"></score-panel>
 </template>
 
@@ -35,7 +35,7 @@ export default {
         updateWinner: async function(user) {
             this.updateScore(user);
             await this.$swal(`${user} wins!`);
-            this.resetGame();
+            this.resetBoard();
         },
         updateScore: function(user) {
             this.score[user]++
@@ -48,8 +48,11 @@ export default {
             this.showStartingPopup();
         },
         resetGame: function() {
-            this.cells = this.freshCells();
+            this.resetBoard()
             this.score = this.freshScores();
+        },
+        resetBoard: function() {
+            this.cells = this.freshCells();
             this.resetCellsClicked();
         },
         showStartingPopup: function() {
@@ -60,6 +63,7 @@ export default {
                 return {
                     id: number,
                     value: 'empty', // Can be 'empty', 'computer', 'player'
+                    clickedOn: false
                 }
             })
         },
@@ -73,6 +77,9 @@ export default {
             this.users.forEach(user => {
                 user.cellsClicked = []
             })
+        },
+        updateCellsClickedOn: function(cell) {
+            this.cells[cell].clickedOn = true;
         }
     },
 }

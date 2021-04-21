@@ -11,12 +11,14 @@
 
 <script>
 export default {
-    props: ['cell', 'currentGo'],
+    props: ['cell', 'currentGo', 'clickedOn'],
     name: "Cell.vue",
     emits: ['cellClickedOn'],
     methods: {
         cellClickedOn: function() {
-            this.$emit('cellClickedOn', this.cell.id, this.currentGo)
+            if (!this.clickedOn) {
+                this.$emit('cellClickedOn', this.cell.id, this.currentGo)
+            }
         }
     },
     computed: {

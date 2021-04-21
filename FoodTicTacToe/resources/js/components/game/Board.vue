@@ -5,6 +5,7 @@
                 v-for="cell in cells"
                 :cell="cell"
                 :currentGo="currentGo"
+                :clickedOn="cell.clickedOn"
                 @cellClickedOn="updateBoard">
             </cell>
         </div>
@@ -38,6 +39,7 @@ export default {
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
             this.changePlayer(user);
+            this.$emit('cellClickedOn', cell)
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
