@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center my-4">
         <div class="p-4">
             {{ score }}
         </div>

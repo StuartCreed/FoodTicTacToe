@@ -16,15 +16,9 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
-    props: ['currentGo'],
+    props: ['currentGo', 'cells'],
     data: function () {
         return {
-            cells: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(number => {
-                return {
-                    id: number,
-                    value: 'empty', // Can be 'empty', 'computer', 'player'
-                }
-            }),
             winningConditions: [
                 [0, 1, 2],
                 [3, 4, 5],
