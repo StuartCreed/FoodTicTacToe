@@ -51,9 +51,6 @@ export default {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
-            if (this.totalCellsClicked.length === 9) {
-                console.log('All goes taken')
-            }
             this.changePlayer(user);
         },
         checkBoard: function() {
@@ -71,6 +68,10 @@ export default {
 
                 if (won) {
                     this.gameWon(user.name);
+                } else {
+                    if (this.totalCellsClicked.length === 9) {
+                        this.$swal("Gameover. Let's start a new game shall we!");
+                    }
                 }
             })
             //TODO check if all cells have been changed
@@ -86,7 +87,6 @@ export default {
             this.$emit('updateGo', user)
         },
         gameWon: function(user) {
-            console.log(user, 'winner')
             this.$emit('gameWon', user);
         }
     },

@@ -24,5 +24,8 @@
         "tailwindcss": "^2.0.1",
         "vue": "^3.0.11",
         "vue-loader": "^16.2.0"
+    },
+    "dependencies": {
+        "vue-sweetalert2": "^4.3.1"
     }
 }

@@ -30,6 +30,7 @@ export default {
 <style scoped>
     .usersGo {
         color: green;
+        font-weight: bold;
     }
     .notUsersGo {
         color: black;

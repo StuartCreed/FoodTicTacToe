@@ -31,10 +31,11 @@ export default {
     },
     methods: {
         updateWinner: function(user) {
-            this.updateScore(user)
+            this.updateScore(user);
+            this.$swal(`${user} wins!`);
         },
         updateScore: function(user) {
-            this.score[user] ++
+            this.score[user]++
         },
         updateGo: function(user) {
             user === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer'
@@ -42,6 +43,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-</style>
