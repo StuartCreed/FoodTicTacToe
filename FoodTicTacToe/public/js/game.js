@@ -14760,6 +14760,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Cell_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cell.vue */ "./resources/js/components/game/Cell.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -14777,13 +14789,25 @@ __webpack_require__.r(__webpack_exports__);
       }),
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
       currentGo: 'computer',
-      users: ['computer', 'player']
+      users: [{
+        name: 'computer',
+        cellsClicked: []
+      }, {
+        name: 'player',
+        cellsClicked: []
+      }]
     };
   },
   methods: {
     updateBoard: function updateBoard(cell, value) {
       this.cells[cell].value = value;
+      this.updateCellsUserHasClicked(value, cell);
       this.checkBoard();
+
+      if (this.totalCellsClicked.length === 9) {
+        alert('All goes taken');
+      }
+
       this.changePlayer();
     },
     checkBoard: function checkBoard() {
@@ -14791,17 +14815,9 @@ __webpack_require__.r(__webpack_exports__);
 
       // Check if winning condition has been met by either user
       this.users.forEach(function (user) {
-        var cellsUserHasClicked = [];
-
-        _this.cells.forEach(function (cell) {
-          if (cell.value === user) {
-            cellsUserHasClicked.push(cell.id);
-          }
-        });
-
         var won = _this.winningConditions.some(function (cond) {
           var checkCondAccumulator = [];
-          cellsUserHasClicked.some(function (cell) {
+          user.cellsClicked.some(function (cell) {
             if (cond.some(function (cellTest) {
               return cellTest === cell;
             })) {
@@ -14812,12 +14828,28 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         if (won) {
-          alert("User: ".concat(user, " has won"));
+          alert("User: ".concat(user.name, " has won"));
         }
       }); //TODO check if all cells have been changed
     },
+    updateCellsUserHasClicked: function updateCellsUserHasClicked(changedUser, cell) {
+      this.users.forEach(function (user) {
+        if (user.name === changedUser) {
+          user.cellsClicked.push(cell);
+        }
+      });
+    },
     changePlayer: function changePlayer() {
       this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
+    }
+  },
+  computed: {
+    totalCellsClicked: function totalCellsClicked() {
+      var cellsAccumulator = [];
+      this.users.forEach(function (user) {
+        cellsAccumulator = [].concat(_toConsumableArray(cellsAccumulator), _toConsumableArray(user.cellsClicked));
+      });
+      return cellsAccumulator;
     }
   }
 });

@@ -35,28 +35,33 @@ export default {
                 [2, 4, 6]
             ],
             currentGo: 'computer',
-            users: ['computer', 'player']
+            users:
+                [{
+                    name: 'computer',
+                    cellsClicked: []
+                },
+                {
+                    name: 'player',
+                    cellsClicked: []
+                }]
         }
     },
     methods: {
         updateBoard: function(cell, value) {
             this.cells[cell].value = value;
+            this.updateCellsUserHasClicked(value, cell)
             this.checkBoard();
+            if (this.totalCellsClicked.length === 9) {
+                alert('All goes taken')
+            }
             this.changePlayer()
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
             this.users.forEach(user => {
-                const cellsUserHasClicked = [];
-                this.cells.forEach(cell => {
-                    if (cell.value === user) {
-                        cellsUserHasClicked.push(cell.id)
-                    }
-                })
-
                 const won = this.winningConditions.some(cond => {
                     let checkCondAccumulator = []
-                    cellsUserHasClicked.some(cell => {
+                    user.cellsClicked.some(cell => {
                         if (cond.some(cellTest => cellTest === cell)) {
                             checkCondAccumulator.push(cell)
                         }
@@ -65,14 +70,30 @@ export default {
                 })
 
                 if (won) {
-                    alert(`User: ${user} has won`)
+                    alert(`User: ${user.name} has won`)
                 }
             })
             //TODO check if all cells have been changed
         },
+        updateCellsUserHasClicked: function(changedUser, cell) {
+            this.users.forEach(user => {
+                if (user.name === changedUser) {
+                    user.cellsClicked.push(cell)
+                }
+            });
+        },
         changePlayer: function() {
             this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer'
         },
+    },
+    computed: {
+        totalCellsClicked: function() {
+            let cellsAccumulator = []
+            this.users.forEach(user => {
+                cellsAccumulator = [...cellsAccumulator, ...user.cellsClicked]
+            })
+            return cellsAccumulator
+        }
     }
 }
 </script>
