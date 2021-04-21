@@ -43,7 +43,8 @@ export default {
                 {
                     name: 'player',
                     cellsClicked: []
-                }]
+                }],
+            gameEnded: false
         }
     },
     methods: {
@@ -65,13 +66,12 @@ export default {
                     })
                     return checkCondAccumulator.length === 3
                 })
-
                 if (won) {
+                    this.gameEnded = true
                     this.gameWon(user.name);
-                } else {
-                    if (this.totalCellsClicked.length === 9) {
-                        this.$swal("Gameover. Let's start a new game shall we!");
-                    }
+                }
+                if (this.totalCellsClicked.length === 9 && !this.gameEnded) {
+                    this.$swal("Gameover. Let's start a new game shall we!");
                 }
             })
             //TODO check if all cells have been changed

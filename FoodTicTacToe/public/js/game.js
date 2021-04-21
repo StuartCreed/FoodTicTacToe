@@ -14802,7 +14802,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }, {
         name: 'player',
         cellsClicked: []
-      }]
+      }],
+      gameEnded: false
     };
   },
   methods: {
@@ -14830,11 +14831,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
 
         if (won) {
+          _this.gameEnded = true;
+
           _this.gameWon(user.name);
-        } else {
-          if (_this.totalCellsClicked.length === 9) {
-            _this.$swal("Gameover. Let's start a new game shall we!");
-          }
+        }
+
+        if (_this.totalCellsClicked.length === 9 && !_this.gameEnded) {
+          _this.$swal("Gameover. Let's start a new game shall we!");
         }
       }); //TODO check if all cells have been changed
     },
@@ -15097,12 +15100,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["score", "currentGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_board, {
-    onGameWon: $options.updateWinner,
     currentGo: _ctx.currentGo,
+    onGameWon: $options.updateWinner,
     onUpdateGo: $options.updateGo
   }, null, 8
   /* PROPS */
-  , ["onGameWon", "currentGo", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "onGameWon", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_winner_pop_up), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.player,
     userName: "player",
     currentGo: _ctx.currentGo

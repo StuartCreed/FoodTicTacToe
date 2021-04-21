@@ -2,7 +2,7 @@
     <score-panel :score="score.computer" userName="computer" :currentGo="currentGo"></score-panel>
     <app-button></app-button>
     <winner-pop-up></winner-pop-up>
-    <board @gameWon="updateWinner" :currentGo="currentGo" @updateGo="updateGo"></board>
+    <board :currentGo="currentGo" @gameWon="updateWinner" @updateGo="updateGo"></board>
     <winner-pop-up></winner-pop-up>
     <app-button></app-button>
     <score-panel :score="score.player" userName="player" :currentGo="currentGo"></score-panel>
