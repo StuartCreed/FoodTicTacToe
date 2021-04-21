@@ -14926,14 +14926,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "Game.vue",
   data: function data() {
     return {
-      currentGo: 'computer',
+      currentGo: 'Computer',
       score: this.freshScores(),
       cells: this.freshCells(),
       users: [{
-        name: 'computer',
+        name: 'Computer',
         cellsClicked: []
       }, {
-        name: 'player',
+        name: 'Player',
         cellsClicked: []
       }]
     };
@@ -14970,7 +14970,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.score[user]++;
     },
     updateGo: function updateGo(user) {
-      user === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
+      user === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer';
     },
     startNewGame: function startNewGame() {
       this.resetGame();
@@ -14992,15 +14992,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return {
           id: number,
           value: 'empty',
-          // Can be 'empty', 'computer', 'player'
+          // Can be 'empty', 'Computer', 'Player'
           clickedOn: false
         };
       });
     },
     freshScores: function freshScores() {
       return {
-        computer: 0,
-        player: 0
+        Computer: 0,
+        Player: 0
       };
     },
     resetCellsClicked: function resetCellsClicked() {
@@ -15172,8 +15172,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
-    score: _ctx.score.computer,
-    userName: "computer",
+    score: _ctx.score.Computer,
+    userName: "Computer",
     currentGo: _ctx.currentGo
   }, null, 8
   /* PROPS */
@@ -15187,8 +15187,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["currentGo", "users", "cells", "onCellClickedOn", "onGameWon", "onGameEnded"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
-    score: _ctx.score.player,
-    userName: "player",
+    score: _ctx.score.Player,
+    userName: "Player",
     currentGo: _ctx.currentGo
   }, null, 8
   /* PROPS */

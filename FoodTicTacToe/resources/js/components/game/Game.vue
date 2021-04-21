@@ -1,6 +1,6 @@
 <template>
     <app-button text="Start New Game" @click="startNewGame"></app-button>
-    <score-panel :score="score.computer" userName="computer" :currentGo="currentGo"></score-panel>
+    <score-panel :score="score.Computer" userName="Computer" :currentGo="currentGo"></score-panel>
     <board
         :currentGo="currentGo"
         :users="users"
@@ -10,7 +10,7 @@
         @gameEnded="resetBoard"
     >
     </board>
-    <score-panel :score="score.player" userName="player" :currentGo="currentGo"></score-panel>
+    <score-panel :score="score.Player" userName="Player" :currentGo="currentGo"></score-panel>
 </template>
 
 <script>
@@ -25,16 +25,16 @@ export default {
     name: "Game.vue",
     data: function() {
         return {
-            currentGo: 'computer',
+            currentGo: 'Computer',
             score: this.freshScores(),
             cells: this.freshCells(),
             users:
                 [{
-                    name: 'computer',
+                    name: 'Computer',
                     cellsClicked: []
                 },
                 {
-                    name: 'player',
+                    name: 'Player',
                     cellsClicked: []
                 }],
         }
@@ -49,7 +49,7 @@ export default {
             this.score[user]++
         },
         updateGo: function(user) {
-            user === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer'
+            user === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer'
         },
         startNewGame: function() {
             this.resetGame();
@@ -70,15 +70,15 @@ export default {
             return [0, 1, 2, 3, 4, 5, 6, 7, 8].map(number => {
                 return {
                     id: number,
-                    value: 'empty', // Can be 'empty', 'computer', 'player'
+                    value: 'empty', // Can be 'empty', 'Computer', 'Player'
                     clickedOn: false
                 }
             })
         },
         freshScores: function() {
             return {
-                computer: 0,
-                player: 0
+                Computer: 0,
+                Player: 0
             }
         },
         resetCellsClicked: function() {
