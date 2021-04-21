@@ -52,7 +52,7 @@ export default {
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
             if (this.totalCellsClicked.length === 9) {
-                alert('All goes taken')
+                console.log('All goes taken')
             }
             this.changePlayer(user);
         },
@@ -86,7 +86,8 @@ export default {
             this.$emit('updateGo', user)
         },
         gameWon: function(user) {
-            this.$emit('gameWon', user)
+            console.log(user, 'winner')
+            this.$emit('gameWon', user);
         }
     },
     computed: {
