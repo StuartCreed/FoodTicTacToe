@@ -14979,9 +14979,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.score[user]++;
     },
     updateGo: function updateGo() {
-      console.log('before', this.currentGo);
       this.currentGo === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer';
-      console.log('after', this.currentGo);
     },
     startNewGame: function startNewGame() {
       this.resetGame();
@@ -15026,15 +15024,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.cells[cell].clickedOn = true;
     },
     takeComputerTurn: function takeComputerTurn() {
-      var cellToSelect = this.cells.find(function (cell) {
-        return cell.value === 'empty';
-      });
-      this.cells[cellToSelect.id] = {
-        id: cellToSelect.id,
-        value: 'Computer',
-        clickedOn: true
-      };
-      this.updateGo();
+      var _this = this;
+
+      setTimeout(function () {
+        var cellToSelect = _this.cells.find(function (cell) {
+          return cell.value === 'empty';
+        });
+
+        _this.cells[cellToSelect.id] = {
+          id: cellToSelect.id,
+          value: 'Computer',
+          clickedOn: true
+        };
+
+        _this.updateGo();
+      }, 600);
     }
   }
 });

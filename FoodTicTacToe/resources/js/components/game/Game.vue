@@ -52,9 +52,7 @@ export default {
             this.score[user]++
         },
         updateGo: function() {
-            console.log('before', this.currentGo)
             this.currentGo === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer'
-            console.log('after', this.currentGo)
         },
         startNewGame: function() {
             this.resetGame();
@@ -98,13 +96,15 @@ export default {
             this.cells[cell].clickedOn = true;
         },
         takeComputerTurn: function() {
-            const cellToSelect = this.cells.find(cell => cell.value === 'empty');
-            this.cells[cellToSelect.id] = {
-                id: cellToSelect.id,
-                value: 'Computer',
-                clickedOn: true
-            }
-            this.updateGo()
+            setTimeout(() => {
+                const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+                this.cells[cellToSelect.id] = {
+                    id: cellToSelect.id,
+                    value: 'Computer',
+                    clickedOn: true
+                }
+                this.updateGo()
+            }, 600)
         }
     }
 }
