@@ -14800,8 +14800,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   props: ['currentGo', 'cells', 'users'],
   data: function data() {
     return {
-      winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
-      gameEnded: false
+      winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
     };
   },
   methods: {
@@ -14809,8 +14808,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.cells[cell].value = user;
       this.updateCellsUserHasClicked(user, cell);
       this.checkBoard();
-      this.changePlayer(user);
-      this.$emit('cellClickedOn', cell);
+      this.$emit('cellClickedOn', cell, user);
     },
     checkBoard: function checkBoard() {
       var _this = this;
@@ -14830,15 +14828,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
 
         if (won) {
-          _this.gameEnded = true;
+          _this.$emit('gameWon', user.name);
 
-          _this.gameWon(user.name);
+          return;
         }
 
-        if (_this.totalCellsClicked.length === 9 && !_this.gameEnded) {
+        if (_this.totalCellsClicked.length === 9) {
+          _this.$emit('gameEnded');
+
           _this.$swal("Gameover. Let's start a new game shall we!");
         }
-      }); //TODO check if all cells have been changed
+      });
     },
     updateCellsUserHasClicked: function updateCellsUserHasClicked(changedUser, cell) {
       this.users.forEach(function (user) {
@@ -14846,12 +14846,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           user.cellsClicked.push(cell);
         }
       });
-    },
-    changePlayer: function changePlayer(user) {
-      this.$emit('updateGo', user);
-    },
-    gameWon: function gameWon(user) {
-      this.$emit('gameWon', user);
     }
   },
   computed: {
@@ -15014,7 +15008,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user.cellsClicked = [];
       });
     },
-    updateCellsClickedOn: function updateCellsClickedOn(cell) {
+    updateGameState: function updateGameState(cell, user) {
+      this.updateGo(user);
       this.cells[cell].clickedOn = true;
     }
   }
@@ -15186,12 +15181,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     currentGo: _ctx.currentGo,
     users: _ctx.users,
     cells: _ctx.cells,
+    onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateWinner,
-    onUpdateGo: $options.updateGo,
-    onCellClickedOn: $options.updateCellsClickedOn
+    onGameEnded: $options.resetBoard
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "onGameWon", "onUpdateGo", "onCellClickedOn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "onCellClickedOn", "onGameWon", "onGameEnded"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.player,
     userName: "player",
     currentGo: _ctx.currentGo

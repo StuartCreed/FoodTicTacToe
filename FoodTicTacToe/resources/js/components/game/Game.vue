@@ -1,7 +1,15 @@
 <template>
     <app-button text="Start New Game" @click="startNewGame"></app-button>
     <score-panel :score="score.computer" userName="computer" :currentGo="currentGo"></score-panel>
-    <board :currentGo="currentGo" :users="users" :cells="cells" @gameWon="updateWinner" @updateGo="updateGo" @cellClickedOn="updateCellsClickedOn"></board>
+    <board
+        :currentGo="currentGo"
+        :users="users"
+        :cells="cells"
+        @cellClickedOn="updateGameState"
+        @gameWon="updateWinner"
+        @gameEnded="resetBoard"
+    >
+    </board>
     <score-panel :score="score.player" userName="player" :currentGo="currentGo"></score-panel>
 </template>
 
@@ -78,7 +86,8 @@ export default {
                 user.cellsClicked = []
             })
         },
-        updateCellsClickedOn: function(cell) {
+        updateGameState: function(cell, user) {
+            this.updateGo(user)
             this.cells[cell].clickedOn = true;
         }
     },

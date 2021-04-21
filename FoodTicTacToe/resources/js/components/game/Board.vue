@@ -30,7 +30,6 @@ export default {
                 [0, 4, 8],
                 [2, 4, 6]
             ],
-            gameEnded: false
         }
     },
     methods: {
@@ -38,8 +37,7 @@ export default {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
-            this.changePlayer(user);
-            this.$emit('cellClickedOn', cell)
+            this.$emit('cellClickedOn', cell, user)
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
@@ -54,14 +52,14 @@ export default {
                     return checkCondAccumulator.length === 3
                 })
                 if (won) {
-                    this.gameEnded = true
-                    this.gameWon(user.name);
+                    this.$emit('gameWon', user.name);
+                    return
                 }
-                if (this.totalCellsClicked.length === 9 && !this.gameEnded) {
+                if (this.totalCellsClicked.length === 9) {
+                    this.$emit('gameEnded')
                     this.$swal("Gameover. Let's start a new game shall we!");
                 }
             })
-            //TODO check if all cells have been changed
         },
         updateCellsUserHasClicked: function(changedUser, cell) {
             this.users.forEach(user => {
@@ -70,12 +68,6 @@ export default {
                 }
             });
         },
-        changePlayer: function(user) {
-            this.$emit('updateGo', user)
-        },
-        gameWon: function(user) {
-            this.$emit('gameWon', user);
-        }
     },
     computed: {
         totalCellsClicked: function() {
