@@ -14776,7 +14776,8 @@ __webpack_require__.r(__webpack_exports__);
         };
       }),
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
-      currentGo: 'computer'
+      currentGo: 'computer',
+      users: ['computer', 'player']
     };
   },
   methods: {
@@ -14785,13 +14786,38 @@ __webpack_require__.r(__webpack_exports__);
       this.checkBoard();
       this.changePlayer();
     },
+    checkBoard: function checkBoard() {
+      var _this = this;
+
+      // Check if winning condition has been met by either user
+      this.users.forEach(function (user) {
+        var cellsUserHasClicked = [];
+
+        _this.cells.forEach(function (cell) {
+          if (cell.value === user) {
+            cellsUserHasClicked.push(cell.id);
+          }
+        });
+
+        var won = _this.winningConditions.some(function (cond) {
+          var checkCondAccumulator = [];
+          cellsUserHasClicked.some(function (cell) {
+            if (cond.some(function (cellTest) {
+              return cellTest === cell;
+            })) {
+              checkCondAccumulator.push(cell);
+            }
+          });
+          return checkCondAccumulator.length === 3;
+        });
+
+        if (won) {
+          alert("User: ".concat(user, " has won"));
+        }
+      }); //TODO check if all cells have been changed
+    },
     changePlayer: function changePlayer() {
       this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer';
-    },
-    checkBoard: function checkBoard() {
-      //TODO check if winning condition has been met
-      //TODO check if all cells have been changed
-      console.log(this.cells);
     }
   }
 });

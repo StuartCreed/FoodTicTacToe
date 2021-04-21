@@ -34,7 +34,8 @@ export default {
                 [0, 4, 8],
                 [2, 4, 6]
             ],
-            currentGo: 'computer'
+            currentGo: 'computer',
+            users: ['computer', 'player']
         }
     },
     methods: {
@@ -43,14 +44,35 @@ export default {
             this.checkBoard();
             this.changePlayer()
         },
+        checkBoard: function() {
+            // Check if winning condition has been met by either user
+            this.users.forEach(user => {
+                const cellsUserHasClicked = [];
+                this.cells.forEach(cell => {
+                    if (cell.value === user) {
+                        cellsUserHasClicked.push(cell.id)
+                    }
+                })
+
+                const won = this.winningConditions.some(cond => {
+                    let checkCondAccumulator = []
+                    cellsUserHasClicked.some(cell => {
+                        if (cond.some(cellTest => cellTest === cell)) {
+                            checkCondAccumulator.push(cell)
+                        }
+                    })
+                    return checkCondAccumulator.length === 3
+                })
+
+                if (won) {
+                    alert(`User: ${user} has won`)
+                }
+            })
+            //TODO check if all cells have been changed
+        },
         changePlayer: function() {
             this.currentGo === 'computer' ? this.currentGo = 'player' : this.currentGo = 'computer'
         },
-        checkBoard: function() {
-            //TODO check if winning condition has been met
-            //TODO check if all cells have been changed
-            console.log(this.cells)
-        }
     }
 }
 </script>
