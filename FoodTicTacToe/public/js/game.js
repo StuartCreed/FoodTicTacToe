@@ -14808,7 +14808,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.cells[cell].value = user;
       this.updateCellsUserHasClicked(user, cell);
       this.checkBoard();
-      this.$emit('cellClickedOn', cell, user);
+
+      if (this.currentGo === 'Player') {
+        this.takeComputerTurn();
+      }
+
+      this.$emit('cellClickedOn', cell);
     },
     checkBoard: function checkBoard() {
       var _this = this;
@@ -14846,6 +14851,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           user.cellsClicked.push(cell);
         }
       });
+    },
+    takeComputerTurn: function takeComputerTurn() {
+      this.$emit('takeComputerTurn');
     }
   },
   computed: {
@@ -14926,7 +14934,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "Game.vue",
   data: function data() {
     return {
-      currentGo: 'Computer',
+      currentGo: 'Player',
       score: this.freshScores(),
       cells: this.freshCells(),
       users: [{
@@ -14935,7 +14943,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         name: 'Player',
         cellsClicked: []
-      }]
+      }],
+      gameEnded: false
     };
   },
   methods: {
@@ -14969,8 +14978,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateScore: function updateScore(user) {
       this.score[user]++;
     },
-    updateGo: function updateGo(user) {
-      user === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer';
+    updateGo: function updateGo() {
+      console.log('before', this.currentGo);
+      this.currentGo === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer';
+      console.log('after', this.currentGo);
     },
     startNewGame: function startNewGame() {
       this.resetGame();
@@ -14979,10 +14990,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     resetGame: function resetGame() {
       this.resetBoard();
       this.score = this.freshScores();
+      gameEnded = false;
     },
     resetBoard: function resetBoard() {
       this.cells = this.freshCells();
       this.resetCellsClicked();
+      gameEnded = false;
     },
     showStartingPopup: function showStartingPopup() {
       this.$swal('Lets start a new game');
@@ -15008,9 +15021,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user.cellsClicked = [];
       });
     },
-    updateGameState: function updateGameState(cell, user) {
-      this.updateGo(user);
+    updateGameState: function updateGameState(cell) {
+      this.updateGo();
       this.cells[cell].clickedOn = true;
+    },
+    takeComputerTurn: function takeComputerTurn() {
+      var cellToSelect = this.cells.find(function (cell) {
+        return cell.value === 'empty';
+      });
+      this.cells[cellToSelect.id] = {
+        id: cellToSelect.id,
+        value: 'Computer',
+        clickedOn: true
+      };
+      this.updateGo();
     }
   }
 });
@@ -15181,12 +15205,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     currentGo: _ctx.currentGo,
     users: _ctx.users,
     cells: _ctx.cells,
+    gameEnded: _ctx.gameEnded,
     onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateWinner,
-    onGameEnded: $options.resetBoard
+    onGameEnded: $options.resetBoard,
+    onTakeComputerTurn: $options.takeComputerTurn
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "onCellClickedOn", "onGameWon", "onGameEnded"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "gameEnded", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.Player,
     userName: "Player",
     currentGo: _ctx.currentGo

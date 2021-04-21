@@ -37,7 +37,10 @@ export default {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
-            this.$emit('cellClickedOn', cell, user)
+            if (this.currentGo === 'Player') {
+                this.takeComputerTurn()
+            }
+            this.$emit('cellClickedOn', cell)
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
@@ -68,6 +71,9 @@ export default {
                 }
             });
         },
+        takeComputerTurn: function() {
+            this.$emit('takeComputerTurn')
+        }
     },
     computed: {
         totalCellsClicked: function() {

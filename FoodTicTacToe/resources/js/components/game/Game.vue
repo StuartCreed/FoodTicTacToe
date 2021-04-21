@@ -5,9 +5,11 @@
         :currentGo="currentGo"
         :users="users"
         :cells="cells"
+        :gameEnded="gameEnded"
         @cellClickedOn="updateGameState"
         @gameWon="updateWinner"
         @gameEnded="resetBoard"
+        @takeComputerTurn="takeComputerTurn"
     >
     </board>
     <score-panel :score="score.Player" userName="Player" :currentGo="currentGo"></score-panel>
@@ -25,7 +27,7 @@ export default {
     name: "Game.vue",
     data: function() {
         return {
-            currentGo: 'Computer',
+            currentGo: 'Player',
             score: this.freshScores(),
             cells: this.freshCells(),
             users:
@@ -37,6 +39,7 @@ export default {
                     name: 'Player',
                     cellsClicked: []
                 }],
+            gameEnded: false
         }
     },
     methods: {
@@ -48,8 +51,10 @@ export default {
         updateScore: function(user) {
             this.score[user]++
         },
-        updateGo: function(user) {
-            user === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer'
+        updateGo: function() {
+            console.log('before', this.currentGo)
+            this.currentGo === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer'
+            console.log('after', this.currentGo)
         },
         startNewGame: function() {
             this.resetGame();
@@ -58,10 +63,12 @@ export default {
         resetGame: function() {
             this.resetBoard()
             this.score = this.freshScores();
+            gameEnded = false
         },
         resetBoard: function() {
             this.cells = this.freshCells();
             this.resetCellsClicked();
+            gameEnded = false
         },
         showStartingPopup: function() {
             this.$swal('Lets start a new game');
@@ -86,10 +93,19 @@ export default {
                 user.cellsClicked = []
             })
         },
-        updateGameState: function(cell, user) {
-            this.updateGo(user)
+        updateGameState: function(cell) {
+            this.updateGo()
             this.cells[cell].clickedOn = true;
+        },
+        takeComputerTurn: function() {
+            const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+            this.cells[cellToSelect.id] = {
+                id: cellToSelect.id,
+                value: 'Computer',
+                clickedOn: true
+            }
+            this.updateGo()
         }
-    },
+    }
 }
 </script>
