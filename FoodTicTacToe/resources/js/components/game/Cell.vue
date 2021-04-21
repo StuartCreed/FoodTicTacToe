@@ -1,20 +1,27 @@
 <template>
     <div
-        class="flex border-2 border-black p-12 justify-items-center rounded-xl"
+        class="flex border-2 border-black justify-items-center rounded-xl"
         @click="cellClickedOn"
     >
-        {{ data.value }}
+        <div class="w-32 h-32 flex justify-center items-center p-2">
+            <img class="w-full" v-show="this.cell.value !== 'empty'" :src="imgDir"/>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['data', 'currentGo'],
+    props: ['cell', 'currentGo'],
     name: "Cell.vue",
     emits: ['cellClickedOn'],
     methods: {
         cellClickedOn: function() {
-            this.$emit('cellClickedOn', this.data.id, this.currentGo)
+            this.$emit('cellClickedOn', this.cell.id, this.currentGo)
+        }
+    },
+    computed: {
+        imgDir: function() {
+            return './images/' + this.cell.value + '.svg'
         }
     }
 }

@@ -14885,12 +14885,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['data', 'currentGo'],
+  props: ['cell', 'currentGo'],
   name: "Cell.vue",
   emits: ['cellClickedOn'],
   methods: {
     cellClickedOn: function cellClickedOn() {
-      this.$emit('cellClickedOn', this.data.id, this.currentGo);
+      this.$emit('cellClickedOn', this.cell.id, this.currentGo);
+    }
+  },
+  computed: {
+    imgDir: function imgDir() {
+      return './images/' + this.cell.value + '.svg';
     }
   }
 });
@@ -15082,14 +15087,14 @@ var _hoisted_2 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_cell = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("cell");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.cells, function (data) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.cells, function (cell) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_cell, {
-      data: data,
+      cell: cell,
       currentGo: $props.currentGo,
       onCellClickedOn: $options.updateBoard
     }, null, 8
     /* PROPS */
-    , ["data", "currentGo", "onCellClickedOn"]);
+    , ["cell", "currentGo", "onCellClickedOn"]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])]);
@@ -15110,15 +15115,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "w-32 h-32 flex justify-center items-center p-2"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
-    "class": "flex border-2 border-black p-12 justify-items-center rounded-xl",
+    "class": "flex border-2 border-black justify-items-center rounded-xl",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.cellClickedOn && $options.cellClickedOn.apply($options, arguments);
     })
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.data.value), 1
-  /* TEXT */
-  );
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+    "class": "w-full",
+    src: $options.imgDir
+  }, null, 8
+  /* PROPS */
+  , ["src"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, this.cell.value !== 'empty']])])]);
 }
 
 /***/ }),

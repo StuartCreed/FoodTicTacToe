@@ -2,8 +2,8 @@
     <div class="w-full flex justify-center items-center">
         <div class="board grid grid-cols-3 gap-6 w-96">
             <cell
-                v-for="data in cells"
-                :data="data"
+                v-for="cell in cells"
+                :cell="cell"
                 :currentGo="currentGo"
                 @cellClickedOn="updateBoard">
             </cell>
