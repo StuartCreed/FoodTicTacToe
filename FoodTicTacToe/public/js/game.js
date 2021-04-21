@@ -14797,17 +14797,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   name: "Board.vue",
-  props: ['currentGo', 'cells'],
+  props: ['currentGo', 'cells', 'users'],
   data: function data() {
     return {
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
-      users: [{
-        name: 'computer',
-        cellsClicked: []
-      }, {
-        name: 'player',
-        cellsClicked: []
-      }],
       gameEnded: false
     };
   },
@@ -14938,7 +14931,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       currentGo: 'computer',
       score: this.freshScores(),
-      cells: this.freshCells()
+      cells: this.freshCells(),
+      users: [{
+        name: 'computer',
+        cellsClicked: []
+      }, {
+        name: 'player',
+        cellsClicked: []
+      }]
     };
   },
   methods: {
@@ -14982,6 +14982,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     resetGame: function resetGame() {
       this.cells = this.freshCells();
       this.score = this.freshScores();
+      this.resetCellsClicked();
     },
     showStartingPopup: function showStartingPopup() {
       this.$swal('Lets start a new game');
@@ -15000,6 +15001,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         computer: 0,
         player: 0
       };
+    },
+    resetCellsClicked: function resetCellsClicked() {
+      this.users.forEach(function (user) {
+        user.cellsClicked = [];
+      });
     }
   }
 });
@@ -15167,12 +15173,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["score", "currentGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_board, {
     currentGo: _ctx.currentGo,
+    users: _ctx.users,
     cells: _ctx.cells,
     onGameWon: $options.updateWinner,
     onUpdateGo: $options.updateGo
   }, null, 8
   /* PROPS */
-  , ["currentGo", "cells", "onGameWon", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "onGameWon", "onUpdateGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.player,
     userName: "player",
     currentGo: _ctx.currentGo

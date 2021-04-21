@@ -16,7 +16,7 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
-    props: ['currentGo', 'cells'],
+    props: ['currentGo', 'cells', 'users'],
     data: function () {
         return {
             winningConditions: [
@@ -29,15 +29,6 @@ export default {
                 [0, 4, 8],
                 [2, 4, 6]
             ],
-            users:
-                [{
-                    name: 'computer',
-                    cellsClicked: []
-                },
-                {
-                    name: 'player',
-                    cellsClicked: []
-                }],
             gameEnded: false
         }
     },

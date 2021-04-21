@@ -1,7 +1,7 @@
 <template>
     <app-button text="Start New Game" @click="startNewGame"></app-button>
     <score-panel :score="score.computer" userName="computer" :currentGo="currentGo"></score-panel>
-    <board :currentGo="currentGo" :cells="cells" @gameWon="updateWinner" @updateGo="updateGo"></board>
+    <board :currentGo="currentGo" :users="users" :cells="cells" @gameWon="updateWinner" @updateGo="updateGo"></board>
     <score-panel :score="score.player" userName="player" :currentGo="currentGo"></score-panel>
 </template>
 
@@ -20,6 +20,15 @@ export default {
             currentGo: 'computer',
             score: this.freshScores(),
             cells: this.freshCells(),
+            users:
+                [{
+                    name: 'computer',
+                    cellsClicked: []
+                },
+                {
+                    name: 'player',
+                    cellsClicked: []
+                }],
         }
     },
     methods: {
@@ -39,8 +48,9 @@ export default {
             this.showStartingPopup();
         },
         resetGame: function() {
-            this.cells = this.freshCells()
+            this.cells = this.freshCells();
             this.score = this.freshScores();
+            this.resetCellsClicked();
         },
         showStartingPopup: function() {
             this.$swal('Lets start a new game');
@@ -58,6 +68,11 @@ export default {
                 computer: 0,
                 player: 0
             }
+        },
+        resetCellsClicked: function() {
+            this.users.forEach(user => {
+                user.cellsClicked = []
+            })
         }
     },
 }
