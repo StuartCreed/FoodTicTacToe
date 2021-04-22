@@ -14778,7 +14778,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Cell_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cell.vue */ "./resources/js/components/game/Cell.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Cell_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cell.vue */ "./resources/js/components/game/Cell.vue");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -14792,9 +14794,15 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   name: "Board.vue",
   props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'allGoesTaken', 'gameWon'],
@@ -14818,41 +14826,61 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       if (this.gameFinished) this.gameFinished = false;
     },
-    checkBoard: function checkBoard() {
-      var _this = this;
+    checkBoard: function () {
+      var _checkBoard = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _this = this;
 
-      var status = []; // Check if winning condition has been met by either user
+        var status;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                status = []; // Check if winning condition has been met by either user
 
-      Object.keys(this.users).forEach(function (user) {
-        var won = _this.winningConditions.some(function (cond) {
-          var checkCondAccumulator = [];
+                Object.keys(this.users).forEach(function (user) {
+                  var won = _this.winningConditions.some(function (cond) {
+                    var checkCondAccumulator = [];
 
-          _this.users[user].cellsClicked.some(function (cell) {
-            if (cond.some(function (cellTest) {
-              return cellTest === cell;
-            })) {
-              checkCondAccumulator.push(cell);
+                    _this.users[user].cellsClicked.some(function (cell) {
+                      if (cond.some(function (cellTest) {
+                        return cellTest === cell;
+                      })) {
+                        checkCondAccumulator.push(cell);
+                      }
+                    });
+
+                    return checkCondAccumulator.length === 3;
+                  });
+
+                  status.push(won);
+
+                  if (won) {
+                    _this.$emit('gameWon', user);
+
+                    _this.gameFinished = true;
+                  }
+                });
+
+                if (this.allCellsClickedOn && !this.gameWon) {
+                  this.$emit('allGoesTaken');
+                  this.$swal("Gameover. Let's start a new game shall we!");
+                  this.gameFinished = true;
+                }
+
+              case 3:
+              case "end":
+                return _context.stop();
             }
-          });
+          }
+        }, _callee, this);
+      }));
 
-          return checkCondAccumulator.length === 3;
-        });
-
-        status.push(won);
-
-        if (won) {
-          _this.$emit('gameWon', user);
-
-          _this.gameFinished = true;
-        }
-      });
-
-      if (this.allCellsClickedOn && !this.gameWon) {
-        this.$emit('allGoesTaken');
-        this.$swal("Gameover. Let's start a new game shall we!");
-        this.gameFinished = true;
+      function checkBoard() {
+        return _checkBoard.apply(this, arguments);
       }
-    },
+
+      return checkBoard;
+    }(),
     takeComputerTurn: function takeComputerTurn() {
       var _this2 = this;
 
@@ -14983,10 +15011,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.gameWon = true;
                 this.updateScore(user);
-                this.resetBoard();
-                this.$swal("".concat(user, " wins!"));
+                _context.next = 4;
+                return this.$swal("".concat(user, " wins!"));
 
               case 4:
+                this.resetBoard();
+
+              case 5:
               case "end":
                 return _context.stop();
             }

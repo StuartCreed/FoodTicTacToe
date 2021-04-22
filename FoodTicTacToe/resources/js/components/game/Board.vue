@@ -46,7 +46,7 @@ export default {
             // Reset gameFinished property
             if (this.gameFinished) this.gameFinished = false
         },
-        checkBoard: function() {
+        checkBoard: async function() {
             let status = []
             // Check if winning condition has been met by either user
             Object.keys(this.users).forEach(user => {

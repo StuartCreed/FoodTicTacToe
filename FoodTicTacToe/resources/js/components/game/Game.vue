@@ -49,8 +49,8 @@ export default {
         updateGameWon: async function(user) {
             this.gameWon = true;
             this.updateScore(user);
+            await this.$swal(`${user} wins!`);
             this.resetBoard();
-            this.$swal(`${user} wins!`);
         },
         updateScore: function(user) {
             this.score[user]++
