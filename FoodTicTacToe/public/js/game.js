@@ -14797,7 +14797,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   name: "Board.vue",
-  props: ['currentGo', 'cells', 'users', 'cellSelectedByComp'],
+  props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'gameEnded'],
   data: function data() {
     return {
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
@@ -14809,10 +14809,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       this.cells[cell].value = user;
       this.updateCellsUserHasClicked(user, cell);
-      var aUserHasWon = this.checkBoard();
+      var gameFinished = this.checkBoard();
       this.$emit('cellClickedOn', cell);
 
-      if (this.currentGo === 'Player' && !aUserHasWon) {
+      if (this.currentGo === 'Player' && !gameFinished) {
         setTimeout(function () {
           var cellToSelect = _this.cells.find(function (cell) {
             return cell.value === 'empty';
@@ -14854,6 +14854,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _this2.$emit('gameEnded');
 
           _this2.$swal("Gameover. Let's start a new game shall we!");
+
+          status.push(true);
         }
       });
       return status.some(function (state) {
@@ -15221,13 +15223,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     users: _ctx.users,
     cells: _ctx.cells,
     cellSelectedByComp: _ctx.cellSelectedByComp,
+    gameEnded: _ctx.gameEnded,
     onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateWinner,
     onGameEnded: $options.resetBoard,
     onTakeComputerTurn: $options.takeComputerTurn
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "cellSelectedByComp", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "cellSelectedByComp", "gameEnded", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.Player,
     userName: "Player",
     currentGo: _ctx.currentGo

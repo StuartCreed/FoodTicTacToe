@@ -17,7 +17,7 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
-    props: ['currentGo', 'cells', 'users', 'cellSelectedByComp'],
+    props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'gameEnded'],
     data: function () {
         return {
             winningConditions: [
@@ -36,9 +36,9 @@ export default {
         updateBoard: function(cell, user) {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
-            const aUserHasWon = this.checkBoard();
+            const gameFinished = this.checkBoard();
             this.$emit('cellClickedOn', cell)
-            if (this.currentGo === 'Player' && !aUserHasWon) {
+            if (this.currentGo === 'Player' && !gameFinished) {
                 setTimeout(() => {
                     const cellToSelect = this.cells.find(cell => cell.value === 'empty');
                     this.$emit('takeComputerTurn', cellToSelect)
@@ -67,6 +67,7 @@ export default {
                 if (this.totalCellsClicked.length === 9) {
                     this.$emit('gameEnded')
                     this.$swal("Gameover. Let's start a new game shall we!");
+                    status.push(true)
                 }
             })
             return status.some(state => state === true)

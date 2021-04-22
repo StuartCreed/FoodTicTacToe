@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/game/Board.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/Board.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/game/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/Game.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,7 +196,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="47626000" />
+      <workItem from="1618938830945" duration="49065000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -461,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619051839490</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="feat(game): Stops computer's go if player has won">
+      <created>1619051937916</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1619051937916</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

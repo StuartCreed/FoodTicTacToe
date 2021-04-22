@@ -6,6 +6,7 @@
         :users="users"
         :cells="cells"
         :cellSelectedByComp="cellSelectedByComp"
+        :gameEnded="gameEnded"
         @cellClickedOn="updateGameState"
         @gameWon="updateWinner"
         @gameEnded="resetBoard"
