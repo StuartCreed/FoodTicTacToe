@@ -8,7 +8,7 @@
                 {{ userName }}
             </div>
         </div>
-        <div class="p-4">
+        <div class="pl-4">
             {{ score }}
         </div>
     </div>

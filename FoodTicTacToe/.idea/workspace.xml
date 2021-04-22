@@ -193,14 +193,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="61291000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
-      <created>1618874940087</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618874940087</updated>
+      <workItem from="1618938830945" duration="61378000" />
     </task>
     <task id="LOCAL-00002" summary="feat(initial): Scaffolds Scoreboard Route">
       <created>1618900384440</created>
@@ -538,7 +531,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619132986640</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="feat(game): Switches feat and Score">
+      <created>1619133086097</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1619133086104</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +548,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(game): Win game logic" />
     <MESSAGE value="feat(game): Detects when all goes are taken" />
     <MESSAGE value="feat(game): Emits currentGo to game parent" />
     <MESSAGE value="feat(game): Updates score on scoreBoard" />
@@ -573,6 +572,7 @@
     <MESSAGE value="feature(game): Randomises user go" />
     <MESSAGE value="feature(game): Makes pop only clear board after pressed ok" />
     <MESSAGE value="fix(game): Reset game chooses the Computer to start first" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(game): Reset game chooses the Computer to start first" />
+    <MESSAGE value="feat(game): Switches feat and Score" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Switches feat and Score" />
   </component>
 </project>
