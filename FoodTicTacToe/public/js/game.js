@@ -14800,34 +14800,34 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'allGoesTaken', 'gameWon'],
   data: function data() {
     return {
-      winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+      winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]],
+      computerGoDelay: 300,
+      gameFinished: false
     };
   },
   methods: {
     cellClickedOn: function cellClickedOn(cell, user) {
-      var _this = this;
-
       this.$emit('cellClickedOn', cell, user);
       this.cells[cell].value = user;
-      this.checkBoard();
+      this.checkBoard(); //TODO this.gameWon not updated
 
       if (this.currentGo === 'Player' && !this.gameFinished) {
-        // Take computers go
-        setTimeout(function () {
-          _this.$emit('takeComputerTurn');
-        }, 300);
-      }
+        this.takeComputerTurn();
+      } // Reset gameFinished property
+
+
+      if (this.gameFinished) this.gameFinished = false;
     },
     checkBoard: function checkBoard() {
-      var _this2 = this;
+      var _this = this;
 
       var status = []; // Check if winning condition has been met by either user
 
       Object.keys(this.users).forEach(function (user) {
-        var won = _this2.winningConditions.some(function (cond) {
+        var won = _this.winningConditions.some(function (cond) {
           var checkCondAccumulator = [];
 
-          _this2.users[user].cellsClicked.some(function (cell) {
+          _this.users[user].cellsClicked.some(function (cell) {
             if (cond.some(function (cellTest) {
               return cellTest === cell;
             })) {
@@ -14841,16 +14841,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         status.push(won);
 
         if (won) {
-          _this2.$emit('gameWon', user);
+          _this.$emit('gameWon', user);
 
-          return;
+          _this.gameFinished = true;
         }
       });
 
       if (this.allCellsClickedOn && !this.gameWon) {
         this.$emit('allGoesTaken');
         this.$swal("Gameover. Let's start a new game shall we!");
+        this.gameFinished = true;
       }
+    },
+    takeComputerTurn: function takeComputerTurn() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        var cellToSelect = _this2.cells.find(function (cell) {
+          return cell.value === 'empty';
+        });
+
+        _this2.cellClickedOn(cellToSelect.id, 'Computer');
+      }, this.computerGoDelay);
     }
   },
   computed: {
@@ -14868,9 +14880,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     allCellsClickedOn: function allCellsClickedOn() {
       return this.totalCellsClicked.length === 9;
-    },
-    gameFinished: function gameFinished() {
-      return this.gameWon || this.allGoesTaken;
     }
   }
 });
@@ -14965,15 +14974,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.gameWon;
+                this.gameWon = true;
                 this.updateScore(user);
-                _context.next = 4;
-                return this.$swal("".concat(user, " wins!"));
+                this.resetBoard();
+                this.$swal("".concat(user, " wins!"));
 
               case 4:
-                this.resetBoard();
-
-              case 5:
               case "end":
                 return _context.stop();
             }
@@ -14998,12 +15004,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showStartingPopup();
     },
     resetGame: function resetGame() {
-      this.currentGo = 'Player';
       this.resetBoard();
       this.score = this.freshScores();
       this.allGoesTaken = false;
     },
     resetBoard: function resetBoard() {
+      this.$refs.board.gameFinished = false;
       this.updateGo();
       this.cells = this.freshCells();
       this.resetCellsClicked();
@@ -15039,12 +15045,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.cells[cell].clickedOn = true;
       this.updateCellUserHasClicked(cell, user);
       this.updateGo();
-    },
-    takeComputerTurn: function takeComputerTurn() {
-      var cellToSelect = this.cells.find(function (cell) {
-        return cell.value === 'empty';
-      });
-      this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
     },
     updateCellUserHasClicked: function updateCellUserHasClicked(cell, user) {
       this.users[user].cellsClicked.push(cell);
@@ -15229,11 +15229,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     gameWon: _ctx.gameWon,
     onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateGameWon,
-    onAllGoesTaken: $options.resetBoard,
-    onTakeComputerTurn: $options.takeComputerTurn
+    onAllGoesTaken: $options.resetBoard
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "cellSelectedByComp", "allGoesTaken", "gameWon", "onCellClickedOn", "onGameWon", "onAllGoesTaken", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "cellSelectedByComp", "allGoesTaken", "gameWon", "onCellClickedOn", "onGameWon", "onAllGoesTaken"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.Player,
     userName: "Player",
     currentGo: _ctx.currentGo

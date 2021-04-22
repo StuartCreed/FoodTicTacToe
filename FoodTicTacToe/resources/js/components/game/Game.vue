@@ -12,7 +12,6 @@
         @cellClickedOn="updateGameState"
         @gameWon="updateGameWon"
         @allGoesTaken="resetBoard"
-        @takeComputerTurn="takeComputerTurn"
     >
     </board>
     <score-panel :score="score.Player" userName="Player" :currentGo="currentGo"></score-panel>
@@ -48,10 +47,10 @@ export default {
     },
     methods: {
         updateGameWon: async function(user) {
-            this.gameWon;
+            this.gameWon = true;
             this.updateScore(user);
-            await this.$swal(`${user} wins!`);
             this.resetBoard();
+            this.$swal(`${user} wins!`);
         },
         updateScore: function(user) {
             this.score[user]++
@@ -64,12 +63,12 @@ export default {
             this.showStartingPopup();
         },
         resetGame: function() {
-            this.currentGo = 'Player'
             this.resetBoard()
             this.score = this.freshScores();
             this.allGoesTaken = false
         },
         resetBoard: function() {
+            this.$refs.board.gameFinished = false
             this.updateGo()
             this.cells = this.freshCells();
             this.resetCellsClicked();
@@ -102,10 +101,6 @@ export default {
             this.cells[cell].clickedOn = true;
             this.updateCellUserHasClicked(cell, user)
             this.updateGo()
-        },
-        takeComputerTurn: function() {
-            const cellToSelect = this.cells.find(cell => cell.value === 'empty');
-            this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
         },
         updateCellUserHasClicked: function(cell, user) {
            this.users[user].cellsClicked.push(cell)

@@ -30,6 +30,8 @@ export default {
                 [0, 4, 8],
                 [2, 4, 6]
             ],
+            computerGoDelay: 300,
+            gameFinished: false
         }
     },
     methods: {
@@ -37,12 +39,12 @@ export default {
             this.$emit('cellClickedOn', cell, user)
             this.cells[cell].value = user;
             this.checkBoard();
+            //TODO this.gameWon not updated
             if (this.currentGo === 'Player' && !this.gameFinished) {
-                // Take computers go
-                setTimeout(() => {
-                    this.$emit('takeComputerTurn')
-                }, 300)
+                this.takeComputerTurn()
             }
+            // Reset gameFinished property
+            if (this.gameFinished) this.gameFinished = false
         },
         checkBoard: function() {
             let status = []
@@ -60,14 +62,21 @@ export default {
                 status.push(won)
                 if (won) {
                     this.$emit('gameWon', user);
-                    return
+                    this.gameFinished = true
                 }
             })
             if (this.allCellsClickedOn && !this.gameWon) {
                 this.$emit('allGoesTaken')
                 this.$swal("Gameover. Let's start a new game shall we!");
+                this.gameFinished = true
             }
         },
+        takeComputerTurn: function() {
+            setTimeout(() => {
+                const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+                this.cellClickedOn(cellToSelect.id, 'Computer');
+            }, this.computerGoDelay)
+        }
     },
     computed: {
         totalCellsClicked: function() {
@@ -82,9 +91,6 @@ export default {
         },
         allCellsClickedOn: function() {
             return this.totalCellsClicked.length === 9
-        },
-        gameFinished: function() {
-            return this.gameWon || this.allGoesTaken
         }
     },
 

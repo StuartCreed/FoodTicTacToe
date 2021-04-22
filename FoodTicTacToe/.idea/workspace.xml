@@ -196,7 +196,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="58057000" />
+      <workItem from="1618938830945" duration="60119000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -506,7 +506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619127187837</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="(game): Refactor">
+      <created>1619129810624</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1619129810624</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
