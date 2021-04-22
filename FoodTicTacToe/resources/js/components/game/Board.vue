@@ -36,17 +36,18 @@ export default {
         updateBoard: function(cell, user) {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
-            this.checkBoard();
+            const aUserHasWon = this.checkBoard();
             this.$emit('cellClickedOn', cell)
-            if (this.currentGo === 'Player') {
+            if (this.currentGo === 'Player' && !aUserHasWon) {
                 setTimeout(() => {
                     const cellToSelect = this.cells.find(cell => cell.value === 'empty');
                     this.$emit('takeComputerTurn', cellToSelect)
                     this.updateBoard(cellToSelect.id, 'Computer');
-                }, 600)
+                }, 300)
             }
         },
         checkBoard: function() {
+            let status = []
             // Check if winning condition has been met by either user
             this.users.forEach(user => {
                 const won = this.winningConditions.some(cond => {
@@ -58,6 +59,7 @@ export default {
                     })
                     return checkCondAccumulator.length === 3
                 })
+                status.push(won)
                 if (won) {
                     this.$emit('gameWon', user.name);
                     return
@@ -67,6 +69,7 @@ export default {
                     this.$swal("Gameover. Let's start a new game shall we!");
                 }
             })
+            return status.some(state => state === true)
         },
         updateCellsUserHasClicked: function(changedUser, cell) {
             this.users.forEach(user => {

@@ -5,7 +5,6 @@
         :currentGo="currentGo"
         :users="users"
         :cells="cells"
-        :gameEnded="gameEnded"
         :cellSelectedByComp="cellSelectedByComp"
         @cellClickedOn="updateGameState"
         @gameWon="updateWinner"
@@ -61,6 +60,7 @@ export default {
             this.showStartingPopup();
         },
         resetGame: function() {
+            this.currentGo = 'Player'
             this.resetBoard()
             this.score = this.freshScores();
             this.gameEnded = false

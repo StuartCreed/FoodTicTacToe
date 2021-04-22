@@ -14807,13 +14807,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     updateBoard: function updateBoard(cell, user) {
       var _this = this;
 
-      console.log('cell', cell, 'user', user);
       this.cells[cell].value = user;
       this.updateCellsUserHasClicked(user, cell);
-      this.checkBoard();
+      var aUserHasWon = this.checkBoard();
       this.$emit('cellClickedOn', cell);
 
-      if (this.currentGo === 'Player') {
+      if (this.currentGo === 'Player' && !aUserHasWon) {
         setTimeout(function () {
           var cellToSelect = _this.cells.find(function (cell) {
             return cell.value === 'empty';
@@ -14822,13 +14821,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _this.$emit('takeComputerTurn', cellToSelect);
 
           _this.updateBoard(cellToSelect.id, 'Computer');
-        }, 600);
+        }, 300);
       }
     },
     checkBoard: function checkBoard() {
       var _this2 = this;
 
-      // Check if winning condition has been met by either user
+      var status = []; // Check if winning condition has been met by either user
+
       this.users.forEach(function (user) {
         var won = _this2.winningConditions.some(function (cond) {
           var checkCondAccumulator = [];
@@ -14842,6 +14842,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           return checkCondAccumulator.length === 3;
         });
 
+        status.push(won);
+
         if (won) {
           _this2.$emit('gameWon', user.name);
 
@@ -14853,6 +14855,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           _this2.$swal("Gameover. Let's start a new game shall we!");
         }
+      });
+      return status.some(function (state) {
+        return state === true;
       });
     },
     updateCellsUserHasClicked: function updateCellsUserHasClicked(changedUser, cell) {
@@ -14987,15 +14992,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.score[user]++;
     },
     updateGo: function updateGo() {
-      console.log('currentGo before', this.currentGo);
       this.isComputerGo ? this.currentGo = 'Player' : this.currentGo = 'Computer';
-      console.log('currentGo after', this.currentGo);
     },
     startNewGame: function startNewGame() {
       this.resetGame();
       this.showStartingPopup();
     },
     resetGame: function resetGame() {
+      this.currentGo = 'Player';
       this.resetBoard();
       this.score = this.freshScores();
       this.gameEnded = false;
@@ -15215,7 +15219,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     currentGo: _ctx.currentGo,
     users: _ctx.users,
     cells: _ctx.cells,
-    gameEnded: _ctx.gameEnded,
     cellSelectedByComp: _ctx.cellSelectedByComp,
     onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateWinner,
@@ -15223,7 +15226,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onTakeComputerTurn: $options.takeComputerTurn
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "gameEnded", "cellSelectedByComp", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "cellSelectedByComp", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.Player,
     userName: "Player",
     currentGo: _ctx.currentGo
