@@ -73,9 +73,15 @@ export default {
         },
         takeComputerTurn: function() {
             setTimeout(() => {
-                const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+                const cellsLeft = this.cells.filter(cell => cell.value === 'empty');
+                const cellToSelect = cellsLeft[this.getRandomInt(0, cellsLeft.length - 1)]
                 this.cellClickedOn(cellToSelect.id, 'Computer');
             }, this.computerGoDelay)
+        },
+        getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
     },
     computed: {

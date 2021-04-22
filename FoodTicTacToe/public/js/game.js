@@ -14857,12 +14857,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this2 = this;
 
       setTimeout(function () {
-        var cellToSelect = _this2.cells.find(function (cell) {
+        var cellsLeft = _this2.cells.filter(function (cell) {
           return cell.value === 'empty';
         });
 
+        var cellToSelect = cellsLeft[_this2.getRandomInt(0, cellsLeft.length - 1)];
+
         _this2.cellClickedOn(cellToSelect.id, 'Computer');
       }, this.computerGoDelay);
+    },
+    getRandomInt: function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
   },
   computed: {
