@@ -34,10 +34,7 @@ export default {
     },
     methods: {
         updateBoard: function(cell, user) {
-            console.log('invoked', this.isUsersGo, this.allCellsClickedOn, this.totalCellsClicked.length)
-            this.updateCellsUserHasClicked(user, cell)
             if (this.isUsersGo || this.allCellsClickedOn) {
-                console.log('invoked2')
                 this.cells[cell].value = user;
                 const gameFinished = this.checkBoard();
                 this.$emit('cellClickedOn', cell)
@@ -49,6 +46,7 @@ export default {
                     }, 300)
                 }
             }
+            this.updateCellsUserHasClicked(user, cell)
         },
         checkBoard: function() {
             let status = []

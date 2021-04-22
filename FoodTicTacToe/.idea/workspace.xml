@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="">
+    <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="fix(game): Ensures that the game over pop appears when all boxes clicked">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/game/Board.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/Board.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/game/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/Game.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +194,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="51104000" />
+      <workItem from="1618938830945" duration="51632000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -485,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619121410819</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="fix(game): Ensures that the game over pop appears when all boxes clicked">
+      <created>1619122740224</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1619122740224</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +500,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(game): Board Structure" />
     <MESSAGE value="feat(game): Board Improvements" />
     <MESSAGE value="feat(game): Passing data props into a cell" />
     <MESSAGE value="feat(game): Captures user clicking on a cell" />
@@ -520,6 +524,7 @@
     <MESSAGE value="feat(game): Stops computer's go if player has won" />
     <MESSAGE value="fix(game): Stops computer's go if there is on winner" />
     <MESSAGE value="feat(game): Ensures the user cannot go when it is the computers turn" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Ensures the user cannot go when it is the computers turn" />
+    <MESSAGE value="fix(game): Ensures that the game over pop appears when all boxes clicked" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(game): Ensures that the game over pop appears when all boxes clicked" />
   </component>
 </project>
