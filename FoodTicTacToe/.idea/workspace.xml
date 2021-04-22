@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/game/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/Game.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/game/ScorePanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/game/ScorePanel.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +193,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="61167000" />
+      <workItem from="1618938830945" duration="61291000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -533,7 +531,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619132616300</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="fix(game): Reset game chooses the Computer to start first">
+      <created>1619132986640</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1619132986640</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +548,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(game): Updates current player" />
     <MESSAGE value="feat(game): Win game logic" />
     <MESSAGE value="feat(game): Detects when all goes are taken" />
     <MESSAGE value="feat(game): Emits currentGo to game parent" />
@@ -568,6 +572,7 @@
     <MESSAGE value="fix(game): Makes game work as it should" />
     <MESSAGE value="feature(game): Randomises user go" />
     <MESSAGE value="feature(game): Makes pop only clear board after pressed ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature(game): Makes pop only clear board after pressed ok" />
+    <MESSAGE value="fix(game): Reset game chooses the Computer to start first" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(game): Reset game chooses the Computer to start first" />
   </component>
 </project>

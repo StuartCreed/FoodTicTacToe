@@ -1,8 +1,5 @@
 <template>
     <div class="flex justify-center items-center my-4">
-        <div class="p-4">
-            {{ score }}
-        </div>
         <div>
             <div>
 
@@ -10,6 +7,9 @@
             <div :class="userClass">
                 {{ userName }}
             </div>
+        </div>
+        <div class="p-4">
+            {{ score }}
         </div>
     </div>
 </template>
