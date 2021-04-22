@@ -66,6 +66,7 @@ export default {
             this.gameEnded = false
         },
         resetBoard: function() {
+            this.currentGo = 'Player'
             this.cells = this.freshCells();
             this.resetCellsClicked();
             this.gameEnded = false

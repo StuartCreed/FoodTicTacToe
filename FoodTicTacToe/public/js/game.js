@@ -15005,6 +15005,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.gameEnded = false;
     },
     resetBoard: function resetBoard() {
+      this.currentGo = 'Player';
       this.cells = this.freshCells();
       this.resetCellsClicked();
       this.gameEnded = false;
