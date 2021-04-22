@@ -34,10 +34,9 @@ export default {
     },
     methods: {
         cellClickedOn: function(cell, user) {
-            this.updateCellsUserHasClicked(user, cell)
+            this.$emit('cellClickedOn', cell, user)
             this.cells[cell].value = user;
             this.checkBoard();
-            this.$emit('cellClickedOn', cell)
             if (this.currentGo === 'Player' && !this.gameFinished) {
                 // Take computers go
                 setTimeout(() => {
@@ -48,10 +47,10 @@ export default {
         checkBoard: function() {
             let status = []
             // Check if winning condition has been met by either user
-            this.users.forEach(user => {
+            Object.keys(this.users).forEach(user => {
                 const won = this.winningConditions.some(cond => {
                     let checkCondAccumulator = []
-                    user.cellsClicked.some(cell => {
+                    this.users[user].cellsClicked.some(cell => {
                         if (cond.some(cellTest => cellTest === cell)) {
                             checkCondAccumulator.push(cell)
                         }
@@ -60,7 +59,7 @@ export default {
                 })
                 status.push(won)
                 if (won) {
-                    this.$emit('gameWon', user.name);
+                    this.$emit('gameWon', user);
                     return
                 }
             })
@@ -69,19 +68,12 @@ export default {
                 this.$swal("Gameover. Let's start a new game shall we!");
             }
         },
-        updateCellsUserHasClicked: function(changedUser, cell) {
-            this.users.forEach(user => {
-                if (user.name === changedUser) {
-                    user.cellsClicked.push(cell)
-                }
-            });
-        }
     },
     computed: {
         totalCellsClicked: function() {
             let cellsAccumulator = []
-            this.users.forEach(user => {
-                cellsAccumulator = [...cellsAccumulator, ...user.cellsClicked]
+            Object.keys(this.users).forEach(user => {
+                cellsAccumulator = [...cellsAccumulator, ...this.users[user].cellsClicked]
             })
             return cellsAccumulator
         },

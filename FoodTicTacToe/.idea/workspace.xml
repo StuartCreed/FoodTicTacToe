@@ -196,7 +196,7 @@
       <updated>1618869530260</updated>
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
-      <workItem from="1618938830945" duration="55454000" />
+      <workItem from="1618938830945" duration="58057000" />
     </task>
     <task id="LOCAL-00001" summary="feat(initial): Installs Laravel with Auth&#10;&#10;Installs Laravel with Auth using Jetstream and Sail">
       <created>1618874940087</created>
@@ -499,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619123260811</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="(game): Refactor">
+      <created>1619127187837</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1619127187837</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +516,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(game): Passing data props into a cell" />
     <MESSAGE value="feat(game): Captures user clicking on a cell" />
     <MESSAGE value="feat(game): Board captures the state of the cells" />
     <MESSAGE value="feat(game): Adds winning conditions" />
@@ -534,6 +540,7 @@
     <MESSAGE value="feat(game): Ensures the user cannot go when it is the computers turn" />
     <MESSAGE value="fix(game): Ensures that the game over pop appears when all boxes clicked" />
     <MESSAGE value="fix(game): User can win on last go" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(game): User can win on last go" />
+    <MESSAGE value="(game): Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="(game): Refactor" />
   </component>
 </project>

@@ -10,7 +10,7 @@
         :allGoesTaken="allGoesTaken"
         :gameWon="gameWon"
         @cellClickedOn="updateGameState"
-        @gameWon="updateWinner"
+        @gameWon="updateGameWon"
         @allGoesTaken="resetBoard"
         @takeComputerTurn="takeComputerTurn"
     >
@@ -33,22 +33,21 @@ export default {
             currentGo: 'Player',
             score: this.freshScores(),
             cells: this.freshCells(),
-            users:
-                [{
-                    name: 'Computer',
-                    cellsClicked: []
+            users: {
+                'Computer': {
+                     cellsClicked: []
                 },
-                {
-                    name: 'Player',
+                'Player': {
                     cellsClicked: []
-                }],
+                }
+            },
             allGoesTaken: false,
             cellSelectedByComp: null,
             gameWon: false,
         }
     },
     methods: {
-        updateWinner: async function(user) {
+        updateGameWon: async function(user) {
             this.gameWon;
             this.updateScore(user);
             await this.$swal(`${user} wins!`);
@@ -95,17 +94,21 @@ export default {
             }
         },
         resetCellsClicked: function() {
-            this.users.forEach(user => {
-                user.cellsClicked = []
+            Object.keys(this.users).forEach(user => {
+                this.users[user].cellsClicked = []
             })
         },
-        updateGameState: function(cell) {
+        updateGameState: function(cell, user) {
             this.cells[cell].clickedOn = true;
+            this.updateCellUserHasClicked(cell, user)
             this.updateGo()
         },
         takeComputerTurn: function() {
             const cellToSelect = this.cells.find(cell => cell.value === 'empty');
             this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
+        },
+        updateCellUserHasClicked: function(cell, user) {
+           this.users[user].cellsClicked.push(cell)
         }
     },
     computed: {

@@ -14807,10 +14807,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     cellClickedOn: function cellClickedOn(cell, user) {
       var _this = this;
 
-      this.updateCellsUserHasClicked(user, cell);
+      this.$emit('cellClickedOn', cell, user);
       this.cells[cell].value = user;
       this.checkBoard();
-      this.$emit('cellClickedOn', cell);
 
       if (this.currentGo === 'Player' && !this.gameFinished) {
         // Take computers go
@@ -14824,23 +14823,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       var status = []; // Check if winning condition has been met by either user
 
-      this.users.forEach(function (user) {
+      Object.keys(this.users).forEach(function (user) {
         var won = _this2.winningConditions.some(function (cond) {
           var checkCondAccumulator = [];
-          user.cellsClicked.some(function (cell) {
+
+          _this2.users[user].cellsClicked.some(function (cell) {
             if (cond.some(function (cellTest) {
               return cellTest === cell;
             })) {
               checkCondAccumulator.push(cell);
             }
           });
+
           return checkCondAccumulator.length === 3;
         });
 
         status.push(won);
 
         if (won) {
-          _this2.$emit('gameWon', user.name);
+          _this2.$emit('gameWon', user);
 
           return;
         }
@@ -14850,20 +14851,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.$emit('allGoesTaken');
         this.$swal("Gameover. Let's start a new game shall we!");
       }
-    },
-    updateCellsUserHasClicked: function updateCellsUserHasClicked(changedUser, cell) {
-      this.users.forEach(function (user) {
-        if (user.name === changedUser) {
-          user.cellsClicked.push(cell);
-        }
-      });
     }
   },
   computed: {
     totalCellsClicked: function totalCellsClicked() {
+      var _this3 = this;
+
       var cellsAccumulator = [];
-      this.users.forEach(function (user) {
-        cellsAccumulator = [].concat(_toConsumableArray(cellsAccumulator), _toConsumableArray(user.cellsClicked));
+      Object.keys(this.users).forEach(function (user) {
+        cellsAccumulator = [].concat(_toConsumableArray(cellsAccumulator), _toConsumableArray(_this3.users[user].cellsClicked));
       });
       return cellsAccumulator;
     },
@@ -14949,21 +14945,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       currentGo: 'Player',
       score: this.freshScores(),
       cells: this.freshCells(),
-      users: [{
-        name: 'Computer',
-        cellsClicked: []
-      }, {
-        name: 'Player',
-        cellsClicked: []
-      }],
+      users: {
+        'Computer': {
+          cellsClicked: []
+        },
+        'Player': {
+          cellsClicked: []
+        }
+      },
       allGoesTaken: false,
       cellSelectedByComp: null,
       gameWon: false
     };
   },
   methods: {
-    updateWinner: function () {
-      var _updateWinner = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(user) {
+    updateGameWon: function () {
+      var _updateGameWon = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(user) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -14984,11 +14981,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function updateWinner(_x) {
-        return _updateWinner.apply(this, arguments);
+      function updateGameWon(_x) {
+        return _updateGameWon.apply(this, arguments);
       }
 
-      return updateWinner;
+      return updateGameWon;
     }(),
     updateScore: function updateScore(user) {
       this.score[user]++;
@@ -15032,12 +15029,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     },
     resetCellsClicked: function resetCellsClicked() {
-      this.users.forEach(function (user) {
-        user.cellsClicked = [];
+      var _this = this;
+
+      Object.keys(this.users).forEach(function (user) {
+        _this.users[user].cellsClicked = [];
       });
     },
-    updateGameState: function updateGameState(cell) {
+    updateGameState: function updateGameState(cell, user) {
       this.cells[cell].clickedOn = true;
+      this.updateCellUserHasClicked(cell, user);
       this.updateGo();
     },
     takeComputerTurn: function takeComputerTurn() {
@@ -15045,6 +15045,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return cell.value === 'empty';
       });
       this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
+    },
+    updateCellUserHasClicked: function updateCellUserHasClicked(cell, user) {
+      this.users[user].cellsClicked.push(cell);
     }
   },
   computed: {
@@ -15225,7 +15228,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     allGoesTaken: _ctx.allGoesTaken,
     gameWon: _ctx.gameWon,
     onCellClickedOn: $options.updateGameState,
-    onGameWon: $options.updateWinner,
+    onGameWon: $options.updateGameWon,
     onAllGoesTaken: $options.resetBoard,
     onTakeComputerTurn: $options.takeComputerTurn
   }, null, 8
