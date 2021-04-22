@@ -55,7 +55,7 @@ export default {
         updateScore: function(user) {
             this.score[user]++
         },
-        updateGo: function() {
+        toggleGo: function() {
             this.isComputerGo ? this.currentGo = 'Player' : this.currentGo = 'Computer'
         },
         startNewGame: function() {
@@ -68,8 +68,8 @@ export default {
             this.allGoesTaken = false
         },
         resetBoard: function() {
+            this.currentGo = 'Player'
             this.$refs.board.gameFinished = false
-            this.updateGo()
             this.cells = this.freshCells();
             this.resetCellsClicked();
             this.allGoesTaken = false
@@ -100,7 +100,7 @@ export default {
         updateGameState: function(cell, user) {
             this.cells[cell].clickedOn = true;
             this.updateCellUserHasClicked(cell, user)
-            this.updateGo()
+            this.toggleGo()
         },
         updateCellUserHasClicked: function(cell, user) {
            this.users[user].cellsClicked.push(cell)

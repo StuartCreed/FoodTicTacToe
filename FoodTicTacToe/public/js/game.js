@@ -15034,7 +15034,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateScore: function updateScore(user) {
       this.score[user]++;
     },
-    updateGo: function updateGo() {
+    toggleGo: function toggleGo() {
       this.isComputerGo ? this.currentGo = 'Player' : this.currentGo = 'Computer';
     },
     startNewGame: function startNewGame() {
@@ -15047,8 +15047,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.allGoesTaken = false;
     },
     resetBoard: function resetBoard() {
+      this.currentGo = 'Player';
       this.$refs.board.gameFinished = false;
-      this.updateGo();
       this.cells = this.freshCells();
       this.resetCellsClicked();
       this.allGoesTaken = false;
@@ -15082,7 +15082,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateGameState: function updateGameState(cell, user) {
       this.cells[cell].clickedOn = true;
       this.updateCellUserHasClicked(cell, user);
-      this.updateGo();
+      this.toggleGo();
     },
     updateCellUserHasClicked: function updateCellUserHasClicked(cell, user) {
       this.users[user].cellsClicked.push(cell);
