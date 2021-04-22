@@ -14807,21 +14807,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     updateBoard: function updateBoard(cell, user) {
       var _this = this;
 
-      this.cells[cell].value = user;
-      this.updateCellsUserHasClicked(user, cell);
-      var gameFinished = this.checkBoard();
-      this.$emit('cellClickedOn', cell);
+      if (this.isUsersGo) {
+        this.cells[cell].value = user;
+        this.updateCellsUserHasClicked(user, cell);
+        var gameFinished = this.checkBoard();
+        this.$emit('cellClickedOn', cell);
 
-      if (this.currentGo === 'Player' && !gameFinished) {
-        setTimeout(function () {
-          var cellToSelect = _this.cells.find(function (cell) {
-            return cell.value === 'empty';
-          });
+        if (this.currentGo === 'Player' && !gameFinished) {
+          setTimeout(function () {
+            var cellToSelect = _this.cells.find(function (cell) {
+              return cell.value === 'empty';
+            });
 
-          _this.$emit('takeComputerTurn', cellToSelect);
+            _this.$emit('takeComputerTurn', cellToSelect);
 
-          _this.updateBoard(cellToSelect.id, 'Computer');
-        }, 300);
+            _this.updateBoard(cellToSelect.id, 'Computer');
+          }, 300);
+        }
       }
     },
     checkBoard: function checkBoard() {
@@ -14877,6 +14879,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         cellsAccumulator = [].concat(_toConsumableArray(cellsAccumulator), _toConsumableArray(user.cellsClicked));
       });
       return cellsAccumulator;
+    },
+    isUsersGo: function isUsersGo() {
+      return this.currentGo === 'Player';
     }
   }
 });
@@ -15047,6 +15052,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 'Computer',
         clickedOn: true
       };
+      this.updateGo();
     }
   },
   computed: {

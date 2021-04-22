@@ -34,16 +34,18 @@ export default {
     },
     methods: {
         updateBoard: function(cell, user) {
-            this.cells[cell].value = user;
-            this.updateCellsUserHasClicked(user, cell)
-            const gameFinished = this.checkBoard();
-            this.$emit('cellClickedOn', cell)
-            if (this.currentGo === 'Player' && !gameFinished) {
-                setTimeout(() => {
-                    const cellToSelect = this.cells.find(cell => cell.value === 'empty');
-                    this.$emit('takeComputerTurn', cellToSelect)
-                    this.updateBoard(cellToSelect.id, 'Computer');
-                }, 300)
+            if (this.isUsersGo) {
+                this.cells[cell].value = user;
+                this.updateCellsUserHasClicked(user, cell)
+                const gameFinished = this.checkBoard();
+                this.$emit('cellClickedOn', cell)
+                if (this.currentGo === 'Player' && !gameFinished) {
+                    setTimeout(() => {
+                        const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+                        this.$emit('takeComputerTurn', cellToSelect)
+                        this.updateBoard(cellToSelect.id, 'Computer');
+                    }, 300)
+                }
             }
         },
         checkBoard: function() {
@@ -87,7 +89,11 @@ export default {
                 cellsAccumulator = [...cellsAccumulator, ...user.cellsClicked]
             })
             return cellsAccumulator
+        },
+        isUsersGo: function() {
+            return this.currentGo === 'Player'
         }
     },
+
 }
 </script>

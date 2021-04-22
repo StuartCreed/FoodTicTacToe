@@ -106,6 +106,7 @@ export default {
                 value: 'Computer',
                 clickedOn: true
             }
+            this.updateGo()
         }
     },
     computed: {
