@@ -6,7 +6,7 @@
                 :cell="cell"
                 :currentGo="currentGo"
                 :clickedOn="cell.clickedOn"
-                @cellClickedOn="updateBoard">
+                @cellClickedOn="cellClickedOn">
             </cell>
         </div>
     </div>
@@ -17,7 +17,7 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
-    props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'gameEnded'],
+    props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'allGoesTaken', 'gameWon'],
     data: function () {
         return {
             winningConditions: [
@@ -33,20 +33,17 @@ export default {
         }
     },
     methods: {
-        updateBoard: function(cell, user) {
-            if (this.isUsersGo || this.allCellsClickedOn) {
-                this.cells[cell].value = user;
-                const gameFinished = this.checkBoard();
-                this.$emit('cellClickedOn', cell)
-                if (this.currentGo === 'Player' && !gameFinished) {
-                    setTimeout(() => {
-                        const cellToSelect = this.cells.find(cell => cell.value === 'empty');
-                        this.$emit('takeComputerTurn', cellToSelect)
-                        this.updateBoard(cellToSelect.id, 'Computer');
-                    }, 300)
-                }
-            }
+        cellClickedOn: function(cell, user) {
             this.updateCellsUserHasClicked(user, cell)
+            this.cells[cell].value = user;
+            this.checkBoard();
+            this.$emit('cellClickedOn', cell)
+            if (this.currentGo === 'Player' && !this.gameFinished) {
+                // Take computers go
+                setTimeout(() => {
+                    this.$emit('takeComputerTurn')
+                }, 300)
+            }
         },
         checkBoard: function() {
             let status = []
@@ -66,13 +63,11 @@ export default {
                     this.$emit('gameWon', user.name);
                     return
                 }
-                if (this.allCellsClickedOn) {
-                    this.$emit('gameEnded')
-                    this.$swal("Gameover. Let's start a new game shall we!");
-                    status.push(true)
-                }
             })
-            return status.some(state => state === true)
+            if (this.allCellsClickedOn && !this.gameWon) {
+                this.$emit('allGoesTaken')
+                this.$swal("Gameover. Let's start a new game shall we!");
+            }
         },
         updateCellsUserHasClicked: function(changedUser, cell) {
             this.users.forEach(user => {
@@ -95,6 +90,9 @@ export default {
         },
         allCellsClickedOn: function() {
             return this.totalCellsClicked.length === 9
+        },
+        gameFinished: function() {
+            return this.gameWon || this.allGoesTaken
         }
     },
 

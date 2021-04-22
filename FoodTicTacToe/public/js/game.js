@@ -14797,36 +14797,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Cell: _Cell_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   name: "Board.vue",
-  props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'gameEnded'],
+  props: ['currentGo', 'cells', 'users', 'cellSelectedByComp', 'allGoesTaken', 'gameWon'],
   data: function data() {
     return {
       winningConditions: [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
     };
   },
   methods: {
-    updateBoard: function updateBoard(cell, user) {
+    cellClickedOn: function cellClickedOn(cell, user) {
       var _this = this;
 
-      console.log('invoked', this.isUsersGo, this.allCellsClickedOn, this.totalCellsClicked.length);
       this.updateCellsUserHasClicked(user, cell);
+      this.cells[cell].value = user;
+      this.checkBoard();
+      this.$emit('cellClickedOn', cell);
 
-      if (this.isUsersGo || this.allCellsClickedOn) {
-        console.log('invoked2');
-        this.cells[cell].value = user;
-        var gameFinished = this.checkBoard();
-        this.$emit('cellClickedOn', cell);
-
-        if (this.currentGo === 'Player' && !gameFinished) {
-          setTimeout(function () {
-            var cellToSelect = _this.cells.find(function (cell) {
-              return cell.value === 'empty';
-            });
-
-            _this.$emit('takeComputerTurn', cellToSelect);
-
-            _this.updateBoard(cellToSelect.id, 'Computer');
-          }, 300);
-        }
+      if (this.currentGo === 'Player' && !this.gameFinished) {
+        // Take computers go
+        setTimeout(function () {
+          _this.$emit('takeComputerTurn');
+        }, 300);
       }
     },
     checkBoard: function checkBoard() {
@@ -14854,18 +14844,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           return;
         }
-
-        if (_this2.allCellsClickedOn) {
-          _this2.$emit('gameEnded');
-
-          _this2.$swal("Gameover. Let's start a new game shall we!");
-
-          status.push(true);
-        }
       });
-      return status.some(function (state) {
-        return state === true;
-      });
+
+      if (this.allCellsClickedOn && !this.gameWon) {
+        this.$emit('allGoesTaken');
+        this.$swal("Gameover. Let's start a new game shall we!");
+      }
     },
     updateCellsUserHasClicked: function updateCellsUserHasClicked(changedUser, cell) {
       this.users.forEach(function (user) {
@@ -14888,6 +14872,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     allCellsClickedOn: function allCellsClickedOn() {
       return this.totalCellsClicked.length === 9;
+    },
+    gameFinished: function gameFinished() {
+      return this.gameWon || this.allGoesTaken;
     }
   }
 });
@@ -14969,8 +14956,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: 'Player',
         cellsClicked: []
       }],
-      gameEnded: false,
-      cellSelectedByComp: null
+      allGoesTaken: false,
+      cellSelectedByComp: null,
+      gameWon: false
     };
   },
   methods: {
@@ -14980,14 +14968,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.gameWon;
                 this.updateScore(user);
-                _context.next = 3;
+                _context.next = 4;
                 return this.$swal("".concat(user, " wins!"));
 
-              case 3:
+              case 4:
                 this.resetBoard();
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -15015,13 +15004,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.currentGo = 'Player';
       this.resetBoard();
       this.score = this.freshScores();
-      this.gameEnded = false;
+      this.allGoesTaken = false;
     },
     resetBoard: function resetBoard() {
       this.updateGo();
       this.cells = this.freshCells();
       this.resetCellsClicked();
-      this.gameEnded = false;
+      this.allGoesTaken = false;
     },
     showStartingPopup: function showStartingPopup() {
       this.$swal('Lets start a new game');
@@ -15051,14 +15040,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.cells[cell].clickedOn = true;
       this.updateGo();
     },
-    takeComputerTurn: function takeComputerTurn(cellToSelect) {
-      this.cellSelectedByComp = cellToSelect.id;
-      this.cells[cellToSelect.id] = {
-        id: cellToSelect.id,
-        value: 'Computer',
-        clickedOn: true
-      };
-      this.updateGo();
+    takeComputerTurn: function takeComputerTurn() {
+      var cellToSelect = this.cells.find(function (cell) {
+        return cell.value === 'empty';
+      });
+      this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
     }
   },
   computed: {
@@ -15156,7 +15142,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       cell: cell,
       currentGo: $props.currentGo,
       clickedOn: cell.clickedOn,
-      onCellClickedOn: $options.updateBoard
+      onCellClickedOn: $options.cellClickedOn
     }, null, 8
     /* PROPS */
     , ["cell", "currentGo", "clickedOn", "onCellClickedOn"]);
@@ -15231,18 +15217,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["score", "currentGo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_board, {
+    ref: "board",
     currentGo: _ctx.currentGo,
     users: _ctx.users,
     cells: _ctx.cells,
     cellSelectedByComp: _ctx.cellSelectedByComp,
-    gameEnded: _ctx.gameEnded,
+    allGoesTaken: _ctx.allGoesTaken,
+    gameWon: _ctx.gameWon,
     onCellClickedOn: $options.updateGameState,
     onGameWon: $options.updateWinner,
-    onGameEnded: $options.resetBoard,
+    onAllGoesTaken: $options.resetBoard,
     onTakeComputerTurn: $options.takeComputerTurn
   }, null, 8
   /* PROPS */
-  , ["currentGo", "users", "cells", "cellSelectedByComp", "gameEnded", "onCellClickedOn", "onGameWon", "onGameEnded", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
+  , ["currentGo", "users", "cells", "cellSelectedByComp", "allGoesTaken", "gameWon", "onCellClickedOn", "onGameWon", "onAllGoesTaken", "onTakeComputerTurn"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_score_panel, {
     score: _ctx.score.Player,
     userName: "Player",
     currentGo: _ctx.currentGo

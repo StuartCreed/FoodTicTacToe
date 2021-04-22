@@ -2,14 +2,16 @@
     <app-button text="Start New Game" @click="startNewGame"></app-button>
     <score-panel :score="score.Computer" userName="Computer" :currentGo="currentGo"></score-panel>
     <board
+        ref="board"
         :currentGo="currentGo"
         :users="users"
         :cells="cells"
         :cellSelectedByComp="cellSelectedByComp"
-        :gameEnded="gameEnded"
+        :allGoesTaken="allGoesTaken"
+        :gameWon="gameWon"
         @cellClickedOn="updateGameState"
         @gameWon="updateWinner"
-        @gameEnded="resetBoard"
+        @allGoesTaken="resetBoard"
         @takeComputerTurn="takeComputerTurn"
     >
     </board>
@@ -40,12 +42,14 @@ export default {
                     name: 'Player',
                     cellsClicked: []
                 }],
-            gameEnded: false,
-            cellSelectedByComp: null
+            allGoesTaken: false,
+            cellSelectedByComp: null,
+            gameWon: false,
         }
     },
     methods: {
         updateWinner: async function(user) {
+            this.gameWon;
             this.updateScore(user);
             await this.$swal(`${user} wins!`);
             this.resetBoard();
@@ -64,13 +68,13 @@ export default {
             this.currentGo = 'Player'
             this.resetBoard()
             this.score = this.freshScores();
-            this.gameEnded = false
+            this.allGoesTaken = false
         },
         resetBoard: function() {
             this.updateGo()
             this.cells = this.freshCells();
             this.resetCellsClicked();
-            this.gameEnded = false
+            this.allGoesTaken = false
         },
         showStartingPopup: function() {
             this.$swal('Lets start a new game');
@@ -99,14 +103,9 @@ export default {
             this.cells[cell].clickedOn = true;
             this.updateGo()
         },
-        takeComputerTurn: function(cellToSelect) {
-            this.cellSelectedByComp = cellToSelect.id
-            this.cells[cellToSelect.id] = {
-                id: cellToSelect.id,
-                value: 'Computer',
-                clickedOn: true
-            }
-            this.updateGo()
+        takeComputerTurn: function() {
+            const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+            this.$refs.board.cellClickedOn(cellToSelect.id, 'Computer');
         }
     },
     computed: {
