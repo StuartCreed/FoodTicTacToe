@@ -34,9 +34,11 @@ export default {
     },
     methods: {
         updateBoard: function(cell, user) {
-            if (this.isUsersGo) {
+            console.log('invoked', this.isUsersGo, this.allCellsClickedOn, this.totalCellsClicked.length)
+            this.updateCellsUserHasClicked(user, cell)
+            if (this.isUsersGo || this.allCellsClickedOn) {
+                console.log('invoked2')
                 this.cells[cell].value = user;
-                this.updateCellsUserHasClicked(user, cell)
                 const gameFinished = this.checkBoard();
                 this.$emit('cellClickedOn', cell)
                 if (this.currentGo === 'Player' && !gameFinished) {
@@ -66,7 +68,7 @@ export default {
                     this.$emit('gameWon', user.name);
                     return
                 }
-                if (this.totalCellsClicked.length === 9) {
+                if (this.allCellsClickedOn) {
                     this.$emit('gameEnded')
                     this.$swal("Gameover. Let's start a new game shall we!");
                     status.push(true)
@@ -92,6 +94,9 @@ export default {
         },
         isUsersGo: function() {
             return this.currentGo === 'Player'
+        },
+        allCellsClickedOn: function() {
+            return this.totalCellsClicked.length === 9
         }
     },
 

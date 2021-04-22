@@ -14807,9 +14807,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     updateBoard: function updateBoard(cell, user) {
       var _this = this;
 
-      if (this.isUsersGo) {
+      console.log('invoked', this.isUsersGo, this.allCellsClickedOn, this.totalCellsClicked.length);
+      this.updateCellsUserHasClicked(user, cell);
+
+      if (this.isUsersGo || this.allCellsClickedOn) {
+        console.log('invoked2');
         this.cells[cell].value = user;
-        this.updateCellsUserHasClicked(user, cell);
         var gameFinished = this.checkBoard();
         this.$emit('cellClickedOn', cell);
 
@@ -14852,7 +14855,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           return;
         }
 
-        if (_this2.totalCellsClicked.length === 9) {
+        if (_this2.allCellsClickedOn) {
           _this2.$emit('gameEnded');
 
           _this2.$swal("Gameover. Let's start a new game shall we!");
@@ -14882,6 +14885,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isUsersGo: function isUsersGo() {
       return this.currentGo === 'Player';
+    },
+    allCellsClickedOn: function allCellsClickedOn() {
+      return this.totalCellsClicked.length === 9;
     }
   }
 });
@@ -15012,7 +15018,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.gameEnded = false;
     },
     resetBoard: function resetBoard() {
-      this.currentGo = 'Player';
+      this.updateGo();
       this.cells = this.freshCells();
       this.resetCellsClicked();
       this.gameEnded = false;
