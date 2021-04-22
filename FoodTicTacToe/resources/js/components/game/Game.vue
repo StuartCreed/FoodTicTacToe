@@ -51,6 +51,7 @@ export default {
             this.updateScore(user);
             await this.$swal(`${user} wins!`);
             this.resetBoard();
+            this.storeResult();
         },
         updateScore: function(user) {
             this.score[user]++
@@ -104,6 +105,9 @@ export default {
         },
         updateCellUserHasClicked: function(cell, user) {
            this.users[user].cellsClicked.push(cell)
+        },
+        storeResult: function() {
+            // this.axios.post()
         }
     },
     computed: {

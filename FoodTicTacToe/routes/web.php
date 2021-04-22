@@ -19,8 +19,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/scoreboard', function () {
     return view('scoreboard');
-})->name('scoreboard');
+})->name('scoreboard.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/game', function () {
     return view('game');
-})->name('game');
+})->name('game.show');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/game', function () {
+    return view('game');
+})->name('game.store');
