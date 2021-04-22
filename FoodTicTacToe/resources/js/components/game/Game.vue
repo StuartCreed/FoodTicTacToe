@@ -6,6 +6,7 @@
         :users="users"
         :cells="cells"
         :gameEnded="gameEnded"
+        :cellSelectedByComp="cellSelectedByComp"
         @cellClickedOn="updateGameState"
         @gameWon="updateWinner"
         @gameEnded="resetBoard"
@@ -39,7 +40,8 @@ export default {
                     name: 'Player',
                     cellsClicked: []
                 }],
-            gameEnded: false
+            gameEnded: false,
+            cellSelectedByComp: null
         }
     },
     methods: {
@@ -52,7 +54,7 @@ export default {
             this.score[user]++
         },
         updateGo: function() {
-            this.currentGo === 'Computer' ? this.currentGo = 'Player' : this.currentGo = 'Computer'
+            this.isComputerGo ? this.currentGo = 'Player' : this.currentGo = 'Computer'
         },
         startNewGame: function() {
             this.resetGame();
@@ -61,12 +63,12 @@ export default {
         resetGame: function() {
             this.resetBoard()
             this.score = this.freshScores();
-            gameEnded = false
+            this.gameEnded = false
         },
         resetBoard: function() {
             this.cells = this.freshCells();
             this.resetCellsClicked();
-            gameEnded = false
+            this.gameEnded = false
         },
         showStartingPopup: function() {
             this.$swal('Lets start a new game');
@@ -92,19 +94,21 @@ export default {
             })
         },
         updateGameState: function(cell) {
-            this.updateGo()
             this.cells[cell].clickedOn = true;
+            this.updateGo()
         },
-        takeComputerTurn: function() {
-            setTimeout(() => {
-                const cellToSelect = this.cells.find(cell => cell.value === 'empty');
-                this.cells[cellToSelect.id] = {
-                    id: cellToSelect.id,
-                    value: 'Computer',
-                    clickedOn: true
-                }
-                this.updateGo()
-            }, 600)
+        takeComputerTurn: function(cellToSelect) {
+            this.cellSelectedByComp = cellToSelect.id
+            this.cells[cellToSelect.id] = {
+                id: cellToSelect.id,
+                value: 'Computer',
+                clickedOn: true
+            }
+        }
+    },
+    computed: {
+        isComputerGo: function() {
+            return this.currentGo === 'Computer'
         }
     }
 }

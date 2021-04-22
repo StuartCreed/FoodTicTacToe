@@ -17,7 +17,7 @@ import Cell from './Cell.vue';
 export default {
     components: {Cell},
     name: "Board.vue",
-    props: ['currentGo', 'cells', 'users'],
+    props: ['currentGo', 'cells', 'users', 'cellSelectedByComp'],
     data: function () {
         return {
             winningConditions: [
@@ -37,10 +37,14 @@ export default {
             this.cells[cell].value = user;
             this.updateCellsUserHasClicked(user, cell)
             this.checkBoard();
-            if (this.currentGo === 'Player') {
-                this.takeComputerTurn()
-            }
             this.$emit('cellClickedOn', cell)
+            if (this.currentGo === 'Player') {
+                setTimeout(() => {
+                    const cellToSelect = this.cells.find(cell => cell.value === 'empty');
+                    this.$emit('takeComputerTurn', cellToSelect)
+                    this.updateBoard(cellToSelect.id, 'Computer');
+                }, 600)
+            }
         },
         checkBoard: function() {
             // Check if winning condition has been met by either user
@@ -70,9 +74,6 @@ export default {
                     user.cellsClicked.push(cell)
                 }
             });
-        },
-        takeComputerTurn: function() {
-            this.$emit('takeComputerTurn')
         }
     },
     computed: {
@@ -83,6 +84,6 @@ export default {
             })
             return cellsAccumulator
         }
-    }
+    },
 }
 </script>
