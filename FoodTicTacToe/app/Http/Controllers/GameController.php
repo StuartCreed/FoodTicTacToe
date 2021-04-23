@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mockery\Generator\StringManipulation\Pass\AvoidMethodClashPass;
 
 class GameController extends Controller
@@ -36,8 +37,13 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->winner === 'Computer') {
+            $user = 1;
+        } else {
+            $user = Auth::id();
+        }
         $game = new Game([
-            'user' => $request->winner,
+            'user_id' => $user,
             'computer_score' => $request->score['Computer'],
             'player_score' => $request->score['Player'],
         ]);

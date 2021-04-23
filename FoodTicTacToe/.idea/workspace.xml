@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="17e185c9-8365-4fb5-bfc9-16d0507b72ae" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_22_231600_create_games_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_22_231600_create_games_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/GameSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/GameSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GameController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,14 +206,7 @@
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
       <workItem from="1618938830945" duration="66667000" />
-      <workItem from="1619165415290" duration="1921000" />
-    </task>
-    <task id="LOCAL-00006" summary="feat(initial): Scaffolds back panels">
-      <created>1618939244211</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1618939244211</updated>
+      <workItem from="1619165415290" duration="2264000" />
     </task>
     <task id="LOCAL-00007" summary="feat(initial): Makes home route go to game">
       <created>1618941974634</created>
@@ -552,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619197899435</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat(game): Creates a computer seeder">
+      <created>1619198439957</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1619198439957</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +561,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix(game): Game ended pop up was showing incorrectly" />
     <MESSAGE value="feat(game): Implements reset button" />
     <MESSAGE value="feat(game): Adds hamburger and fries" />
     <MESSAGE value="feat(game): Allows multiple games" />
@@ -587,6 +585,7 @@
     <MESSAGE value="feat(game): Makes migration, controller and imports axios" />
     <MESSAGE value="feat(game): Sends the score through to the game controller" />
     <MESSAGE value="feat(game): Saves the score to the database" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Saves the score to the database" />
+    <MESSAGE value="feat(game): Creates a computer seeder" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Creates a computer seeder" />
   </component>
 </project>
