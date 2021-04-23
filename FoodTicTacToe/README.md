@@ -1,72 +1,52 @@
-<p>Host 'IP ADDRESS' is not allowed to connect to this MySQL server/p>
-<p>CREATE USER 'root'@'172.29.0.1' IDENTIFIED BY '';</p>
-<p>GRANT ALL PRIVILEGES ON *.* TO 'root'@'172.29.0.1';</p>
-<p>CREATE USER 'sail'@'172.29.0.7' IDENTIFIED BY '';</p>
-<p>GRANT ALL PRIVILEGES ON *.* TO 'sail'@'172.29.0.7;</p>
-<p>./vendor/bin/sail up && ./vendor/bin/sail migrate && npm install && npm run dev</p>
-<p>https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server</p>
+<h1>Setup Instructions For Your Local Machine</h1>
 
-<p>QuaserJS Vue3 in Beta so I left it for now. Only major Vue 2 support at the moment.</p>
+<h2>Requirements:</h3>
+Ensure that you have the following installed on your machine:
+<ul>
+    <li>Docker Desktop<a>https://www.docker.com/get-started</a></li>
+    <li>npm and node.js <a>https://nodejs.org/en/</a></li>
+    <li>Composer<a>https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx</a></li>
+</ul>
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Note: I have committed the .env file for ease as there is no sensitive details.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<h2>Steps</h2>
+<ol>
+    <li>run: <span style="color:green">./vendor/bin/sail up<span></span></li><br>
+    Notes: This may take a while to download on first time load, as the Docker images are not yet cached.<br><br>
+    If any errors occur associated with ports already in use, run the following to remove the containers that have already been made: 
+    <span style="color:green">./vendor/bin/sail down<span></span>
+    If the App Port is in use and you can either stop what is currently running on that port or you can run it on a different port instead: <br>
+    <span style="color:green">APP_PORT=89 sail up<span></span><br>
+    If the same issue occurs with the database port (3306), you can run this for example to change the port:<br>
+    <span style="color:green">FORWARD_DB_PORT=3307 sail up<span></span><br>
+    <li>Connect to the database to ensure that the connection is ok e.g. with TablePlus or however you normally connect.<br>
+    The setup details to MySQL will be:
+    Host: 127.0.0.1, <br>Port: 3306 (Unless you have used FORWARD_DB_PORT above),<br>
+    user: root<br><b>database: foodtictactoe</b>
+    You will get a permission error when first trying to login, proceed to the next step to correct this.
+    </li>
+    <li>
+    Note: You will need to provide the database permissions manually to avoid errors like when you access
+        the database from a MySQL helper like tablePlus or the app itself:<br>
+        <p>Host 'IP ADDRESS' is not allowed to connect to this MySQL server/p><br>
+        When this happens open the docker docker. Expand the green app arrow, go to the 'foodtictactoe_mysql_1' 
+        and click on 'CLI'. Type in <span style="color:green">mysql<span> into the terminal, then enter the (following 
+        replacing the following with the ip error that occurs)
+        <p>CREATE USER 'root'@'172.29.0.1' IDENTIFIED BY '';</p>
+        <p>GRANT ALL PRIVILEGES ON *.* TO 'root'@'172.29.0.1';</p>
+        <p>CREATE USER 'sail'@'172.29.0.7' IDENTIFIED BY '';</p>
+        <p>GRANT ALL PRIVILEGES ON *.* TO 'sail'@'172.29.0.7;</p>
+        Read more here: <a>https://stackoverflow.com/questions/19101243/error-1130-hy000-host-is-not-allowed-to-connect-to-this-mysql-server</a>
+    </li>
+    <li>Run: <span style="color:green">composer install<span></li>
+    <li>Run: <span style="color:green">npm install<span></li>
+    <li>Run: <span style="color:green">./vendor/bin/sail artisan migrate<span></li>
+    <li>Run: <span style="color:green">./vendor/bin/sail artisan db:seed GameSeeder<span></li>
+    <li>Run: <span style="color:green">npm run watch<span></li>
+</ol>
 
-## About Laravel
+Enjoy Food Tic Tac Toe!
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Other notes:
+<p>QuaserJS Vue3 support is in Beta so I left it out for now. Only major Vue 2 support at the moment. But I look forward to using it in the future.</p>
