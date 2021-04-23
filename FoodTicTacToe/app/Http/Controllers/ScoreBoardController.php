@@ -14,7 +14,10 @@ class ScoreBoardController extends Controller
      */
     public function index()
     {
-        $games = DB::table('games')->get();
+        $games = DB::table('games')
+            ->select('id','computer_score','player_score','created_at')
+            ->get()
+            ->toJson();
         return view('scoreboard', compact('games'));
     }
 

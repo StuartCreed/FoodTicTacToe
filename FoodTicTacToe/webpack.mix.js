@@ -17,7 +17,8 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ])
 
-mix.js('resources/js/game.js', 'public/js').vue().browserSync('http://localhost:81/')
+mix.js('resources/js/game.js', 'public/js').vue()
+mix.js('resources/js/scoreboard.js', 'public/js').vue().browserSync('http://localhost:81/')
 
 if (mix.inProduction()) {
     mix.version();
