@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ScoreBoardController extends Controller
@@ -15,7 +16,8 @@ class ScoreBoardController extends Controller
     public function index()
     {
         $games = DB::table('games')
-            ->select('id','computer_score','player_score','created_at')
+            ->select('computer_score','player_score','created_at')
+            ->where('user_id', Auth::id())
             ->get()
             ->toJson();
         return view('scoreboard', compact('games'));
