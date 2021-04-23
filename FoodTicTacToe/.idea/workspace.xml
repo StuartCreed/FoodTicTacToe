@@ -208,14 +208,7 @@
       <workItem from="1618869532786" duration="837000" />
       <workItem from="1618870665615" duration="11499000" />
       <workItem from="1618938830945" duration="66667000" />
-      <workItem from="1619165415290" duration="7942000" />
-    </task>
-    <task id="LOCAL-00010" summary="feat(initial): Adds a title to the nav bar">
-      <created>1618943286617</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1618943286617</updated>
+      <workItem from="1619165415290" duration="8095000" />
     </task>
     <task id="LOCAL-00011" summary="feat(initial): Navs to game on logo click">
       <created>1618943531590</created>
@@ -553,7 +546,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619204242812</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat(game): Ensures that the user can only see their scores">
+      <created>1619205785605</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1619205785605</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +563,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat(game): Retains score but refreshes the board" />
     <MESSAGE value="fix(game): Fixes bug when all turns are used up" />
     <MESSAGE value="feat(game): Capitalizes computer and user" />
     <MESSAGE value="feat(game): Adds a computer" />
@@ -588,6 +587,7 @@
     <MESSAGE value="feat(game): Stores the score of the current user against the computer" />
     <MESSAGE value="feat(game): Example datatable for scoreboard" />
     <MESSAGE value="feat(game): Shows scores" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Shows scores" />
+    <MESSAGE value="feat(game): Ensures that the user can only see their scores" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(game): Ensures that the user can only see their scores" />
   </component>
 </project>

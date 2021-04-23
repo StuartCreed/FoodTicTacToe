@@ -18,6 +18,7 @@ class ScoreBoardController extends Controller
         $games = DB::table('games')
             ->select('computer_score','player_score','created_at')
             ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
             ->get()
             ->toJson();
         return view('scoreboard', compact('games'));

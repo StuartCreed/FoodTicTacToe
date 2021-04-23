@@ -14745,7 +14745,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ScoreBoard.vue",
   mounted: function mounted() {
-    $('#scoreboard-table').DataTable();
+    $('#scoreboard-table').DataTable({
+      "searching": false
+    });
   },
   data: function data() {
     return {

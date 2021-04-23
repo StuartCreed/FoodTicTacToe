@@ -21,7 +21,9 @@
     export default {
         name: "ScoreBoard.vue",
         mounted() {
-            $('#scoreboard-table').DataTable();
+            $('#scoreboard-table').DataTable({
+                "searching": false
+            });
         },
         data: function() {
             return {
