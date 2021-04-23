@@ -3,9 +3,9 @@
 <h2>Requirements:</h3>
 Ensure that you have the following installed on your machine:
 <ul>
-    <li>Docker Desktop<a>https://www.docker.com/get-started</a></li>
+    <li>Docker Desktop <a>https://www.docker.com/get-started</a></li>
     <li>npm and node.js <a>https://nodejs.org/en/</a></li>
-    <li>Composer<a>https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx</a></li>
+    <li>Composer <a>https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx</a></li>
 </ul>
 
 Note: I have committed the .env file for ease as there is no sensitive details.
