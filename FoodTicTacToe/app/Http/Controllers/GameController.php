@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Illuminate\Http\Request;
+use Mockery\Generator\StringManipulation\Pass\AvoidMethodClashPass;
 
 class GameController extends Controller
 {
@@ -35,7 +36,12 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        ray($request->score);
+        $game = new Game([
+            'user' => $request->winner,
+            'computer_score' => $request->score['Computer'],
+            'player_score' => $request->score['Player'],
+        ]);
+        $game->save();
     }
 
     /**
