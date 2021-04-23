@@ -35,7 +35,7 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-
+        ray($request->score);
     }
 
     /**

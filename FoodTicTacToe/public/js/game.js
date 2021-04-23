@@ -16800,11 +16800,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Board_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Board.vue */ "./resources/js/components/game/Board.vue");
 /* harmony import */ var _ScorePanel_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ScorePanel.vue */ "./resources/js/components/game/ScorePanel.vue");
 /* harmony import */ var _AppButton_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../AppButton.vue */ "./resources/js/components/AppButton.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -16843,12 +16846,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.gameWon = true;
                 this.updateScore(user);
-                _context.next = 4;
+                this.storeResult(user);
+                _context.next = 5;
                 return this.$swal("".concat(user, " wins!"));
 
-              case 4:
+              case 5:
                 this.resetBoard();
-                this.storeResult();
 
               case 6:
               case "end":
@@ -16920,7 +16923,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateCellUserHasClicked: function updateCellUserHasClicked(cell, user) {
       this.users[user].cellsClicked.push(cell);
     },
-    storeResult: function storeResult() {// this.axios.post()
+    storeResult: function storeResult(winner) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default().post('/gamepost', {
+        score: this.score,
+        winner: winner
+      });
     }
   },
   computed: {

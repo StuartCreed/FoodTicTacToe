@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/game', function () {
     return view('game');
 })->name('game.show');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/game', function () {
-    return view('game');
-})->name('game.store');
+Route::middleware(['auth:sanctum', 'verified'])->post('/gamepost', [GameController::class, 'store'])->name('game.store');

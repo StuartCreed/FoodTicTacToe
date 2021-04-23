@@ -21,6 +21,7 @@
 import Board from './Board.vue';
 import ScorePanel from './ScorePanel.vue';
 import AppButton from '../AppButton.vue';
+import axios from 'axios';
 
 export default {
     components: {
@@ -49,9 +50,9 @@ export default {
         updateGameWon: async function(user) {
             this.gameWon = true;
             this.updateScore(user);
+            this.storeResult(user);
             await this.$swal(`${user} wins!`);
             this.resetBoard();
-            this.storeResult();
         },
         updateScore: function(user) {
             this.score[user]++
@@ -106,8 +107,11 @@ export default {
         updateCellUserHasClicked: function(cell, user) {
            this.users[user].cellsClicked.push(cell)
         },
-        storeResult: function() {
-            // this.axios.post()
+        storeResult: function(winner) {
+            axios.post('/gamepost', {
+                score: this.score,
+                winner: winner
+            })
         }
     },
     computed: {
